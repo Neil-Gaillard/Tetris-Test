@@ -1,4 +1,4 @@
-#include "block.h"
+#include "block.hpp"
 
 #include <random>
 
@@ -15,21 +15,21 @@ namespace block {
 		switch (var)
 		{
 		case 0:
-			return &Block::Block(BlockType::I);
+			return new Block(BlockType::I);
 		case 1:
-			return &Block::Block(BlockType::J);
+			return new Block(BlockType::J);
 		case 2:
-			return &Block::Block(BlockType::L);
+			return new Block(BlockType::L);
 		case 3:
-			return &Block::Block(BlockType::O);
+			return new Block(BlockType::O);
 		case 4:
-			return &Block::Block(BlockType::S);
+			return new Block(BlockType::S);
 		case 5:
-			return &Block::Block(BlockType::T);
+			return new Block(BlockType::T);
 		case 6:
-			return &Block::Block(BlockType::Z);
+			return new Block(BlockType::Z);
 		default:
-			return;
+			throw;
 		}
 	}
 }
