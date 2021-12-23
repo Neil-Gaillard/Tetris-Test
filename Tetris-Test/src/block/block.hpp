@@ -1,7 +1,7 @@
 #pragma once
 
 #include "blockType.hpp"
-#include "blockComponant.hpp"
+#include "../position/position.hpp"
 
 namespace block {
 
@@ -11,7 +11,7 @@ namespace block {
 		const static int NUMBER_COMPONANTS = 4;
 
 		const BlockType m_BlockType;
-		BlockComponant** m_blockComponants;
+		position::Position** m_BlockPositions;
 
 		unsigned int m_MaxWidth;
 		unsigned int m_MinWidth;
@@ -30,9 +30,8 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
-
 	private:
-		Block(BlockType blockType);
+		Block(const BlockType blockType);
 		static void defineComponants();
 		static void defineTBlock();
 		static void defineIBlock();

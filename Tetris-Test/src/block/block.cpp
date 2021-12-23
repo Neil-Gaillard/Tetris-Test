@@ -4,11 +4,11 @@
 
 namespace block {
 
-	Block::Block(BlockType blockType) : m_BlockType(blockType)
+	Block::Block(const BlockType blockType) : m_BlockType(blockType)
 	{
-		this->m_blockComponants = new BlockComponant*[NUMBER_COMPONANTS];
+		this->m_BlockPositions = new position::Position*[NUMBER_COMPONANTS];
 		for (int i = 0; i < NUMBER_COMPONANTS; i++)
-			this->m_blockComponants[i] = new BlockComponant(0, 0);
+			this->m_BlockPositions[i] = new position::Position(0, 0);
 		this->defineComponants();
 	}
 
@@ -55,8 +55,8 @@ namespace block {
 	Block::~Block()
 	{
 		for (int i = 0; i < NUMBER_COMPONANTS; i++)
-			delete this->m_blockComponants[i];
-		delete[] this->m_blockComponants;
+			delete this->m_BlockPositions[i];
+		delete[] this->m_BlockPositions;
 	}
 
 	Block* Block::instantiateRandomBlock()
