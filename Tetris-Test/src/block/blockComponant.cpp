@@ -2,9 +2,14 @@
 
 namespace block {
 
-	BlockComponant::BlockComponant(unsigned int x, unsigned int y) : m_Pos(x, y), active(false)
+	BlockComponant::BlockComponant(unsigned int x, unsigned int y, bool active) : m_Pos(x, y), active(active)
 	{
-		
+
+	}
+
+	BlockComponant::BlockComponant(unsigned int x, unsigned int y) : BlockComponant(x, y, false)
+	{
+
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const BlockComponant& blockComponant)

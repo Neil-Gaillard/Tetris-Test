@@ -30,15 +30,18 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
+		void placeBlock();
+		void moveBlock();
+
 	private:
 		Block(const BlockType blockType);
-		static void defineComponants();
-		static void defineTBlock();
-		static void defineIBlock();
-		static void defineJBlock();
-		static void defineLBlock();
-		static void defineOBlock();
-		static void defineSBlock();
-		static void defineZBlock();
+		void defineComponants();
+		void defineTBlock();
+		void defineIBlock();
+		void defineJBlock();
+		void defineLBlock();
+		void defineOBlock();
+		void defineSBlock();
+		void defineZBlock();
 	};
 }

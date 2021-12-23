@@ -7,49 +7,145 @@ namespace block {
 	Block::Block(const BlockType blockType) : m_BlockType(blockType)
 	{
 		this->m_BlockPositions = new position::Position*[NUMBER_COMPONANTS];
-		for (int i = 0; i < NUMBER_COMPONANTS; i++)
-			this->m_BlockPositions[i] = new position::Position(0, 0);
 		this->defineComponants();
+	}
+
+	void Block::placeBlock()
+	{
+
+	}
+
+	void Block::moveBlock()
+	{
+
 	}
 
 	void Block::defineComponants()
 	{
-
+		switch (this->m_BlockType)
+		{
+		case BlockType::I:
+			this->defineIBlock();
+			break;
+		case BlockType::J:
+			this->defineJBlock();
+			break;
+		case BlockType::L:
+			this->defineLBlock();
+			break;
+		case BlockType::O:
+			this->defineOBlock();
+			break;
+		case BlockType::S:
+			this->defineSBlock();
+			break;
+		case BlockType::T:
+			this->defineTBlock();
+			break;
+		case BlockType::Z:
+			this->defineZBlock();
+			break;
+		default:
+			throw;
+		}
 	}
 
 	void Block::defineTBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(0, 1);
+		this->m_BlockPositions[2] = new position::Position(0, 2);
+		this->m_BlockPositions[3] = new position::Position(1, 1);
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 2;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 1;
 
 	}
 
 	void Block::defineIBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(0, 1);
+		this->m_BlockPositions[2] = new position::Position(0, 2);
+		this->m_BlockPositions[3] = new position::Position(0, 3);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 3;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 0;
 	}
 
 	void Block::defineJBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(0, 1);
+		this->m_BlockPositions[2] = new position::Position(1, 1);
+		this->m_BlockPositions[3] = new position::Position(2, 1);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 1;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 2;
 	}
 
 	void Block::defineLBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(1, 0);
+		this->m_BlockPositions[2] = new position::Position(2, 0);
+		this->m_BlockPositions[3] = new position::Position(0, 1);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 1;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 2;
 	}
 
 	void Block::defineOBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(0, 1);
+		this->m_BlockPositions[2] = new position::Position(1, 0);
+		this->m_BlockPositions[3] = new position::Position(1, 1);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 1;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 1;
 	}
 
 	void Block::defineSBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(0, 0);
+		this->m_BlockPositions[1] = new position::Position(0, 1);
+		this->m_BlockPositions[2] = new position::Position(1, 1);
+		this->m_BlockPositions[3] = new position::Position(1, 2);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 2;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 1;
 	}
 
 	void Block::defineZBlock()
 	{
+		this->m_BlockPositions[0] = new position::Position(1, 0);
+		this->m_BlockPositions[1] = new position::Position(1, 1);
+		this->m_BlockPositions[2] = new position::Position(0, 1);
+		this->m_BlockPositions[3] = new position::Position(0, 2);
 
+
+		this->m_MinWidth = 0;
+		this->m_MaxWidth = 2;
+		this->m_MinHeight = 0;
+		this->m_MaxHeight = 1;
 	}
 
 	Block::~Block()

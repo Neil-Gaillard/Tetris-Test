@@ -11,6 +11,7 @@ namespace block {
 		bool active;
 
 	public:
+		BlockComponant(unsigned int x, unsigned int y, bool active);
 		BlockComponant(unsigned int x, unsigned int y);
 
 		inline position::Position getPos() const { return this->m_Pos; }

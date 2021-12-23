@@ -18,5 +18,4 @@ namespace board {
 
 		friend std::ostream& operator<<(std::ostream& stream, const Board& board);
 	};
-
 }
