@@ -21,9 +21,6 @@
     <ClCompile Include="src\block\block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\position\position.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\block\blockComponant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,15 +33,21 @@
     <ClCompile Include="src\graphics\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\maths\mat4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vec4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\block\block.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\block\blockType.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\position\position.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\block\blockComponant.hpp">
@@ -59,5 +62,18 @@
     <ClInclude Include="src\graphics\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\maths\mat4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vec4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\position.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\graphics\shaders\basic.vert" />
+    <None Include="src\graphics\shaders\basic.frag" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include "position.hpp"
 
-namespace position {
+namespace maths {
 
 	Position::Position() : Position::Position(0, 0) { }
 	Position::Position(unsigned int x, unsigned int y) : m_PosX(x), m_PosY(y) { }

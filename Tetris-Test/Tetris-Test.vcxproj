@@ -96,7 +96,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -159,19 +159,27 @@
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\board\board.cpp" />
     <ClCompile Include="src\block\blockComponant.cpp" />
-    <ClCompile Include="src\position\position.cpp" />
+    <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\block\block.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\maths\position.cpp" />
+    <ClCompile Include="src\maths\vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\board\board.hpp" />
     <ClInclude Include="src\block\blockComponant.hpp" />
-    <ClInclude Include="src\position\position.hpp" />
+    <ClInclude Include="src\maths\mat4.hpp" />
     <ClInclude Include="src\block\block.hpp" />
     <ClInclude Include="src\block\blockType.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
+    <ClInclude Include="src\maths\position.hpp" />
+    <ClInclude Include="src\maths\vec4.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\graphics\shaders\basic.frag" />
+    <None Include="src\graphics\shaders\basic.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

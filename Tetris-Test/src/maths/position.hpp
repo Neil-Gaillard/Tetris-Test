@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace position {
+namespace maths {
 
 	struct Position
 	{

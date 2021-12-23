@@ -1,20 +1,20 @@
 #pragma once
 
-#include "../position/position.hpp"
+#include "../maths/position.hpp"
 
 namespace block {
 
 	struct BlockComponant
 	{
 	private:
-		position::Position m_Pos;
+		maths::Position m_Pos;
 		bool active;
 
 	public:
 		BlockComponant(unsigned int x, unsigned int y, bool active);
 		BlockComponant(unsigned int x, unsigned int y);
 
-		inline position::Position getPos() const { return this->m_Pos; }
+		inline maths::Position getPos() const { return this->m_Pos; }
 
 		inline bool isActive() const { return this->active; }
 

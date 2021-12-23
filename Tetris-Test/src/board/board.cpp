@@ -25,7 +25,7 @@ namespace board {
 	void Board::placeBlock(const block::Block& block)
 	{
 		for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-			position::Position tmpPos = block.getPositionAtIndex(i);
+			maths::Position tmpPos = block.getPositionAtIndex(i);
 			this->m_Board[tmpPos.getXPos()][tmpPos.getYPos()]->setActive(true);
 		}
 	}
