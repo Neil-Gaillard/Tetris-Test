@@ -141,11 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\board\board.cpp" />
+    <ClCompile Include="src\block\blockComponant.cpp" />
     <ClCompile Include="src\position\position.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\block\block.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\board\board.hpp" />
+    <ClInclude Include="src\block\blockComponant.hpp" />
     <ClInclude Include="src\position\position.hpp" />
     <ClInclude Include="src\block\block.hpp" />
     <ClInclude Include="src\block\blockType.hpp" />
