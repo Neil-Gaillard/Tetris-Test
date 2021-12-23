@@ -4,21 +4,21 @@
 
 namespace position {
 
-	class Position
+	struct Position
 	{
 	private:
-		int m_PosX;
-		int m_PosY;
+		unsigned int m_PosX;
+		unsigned int m_PosY;
 
 	public:
 		Position();
-		Position(int x, int y);
+		Position(unsigned int x, unsigned int y);
 
-		inline int getXPos() const { return this->m_PosX; }
-		inline int getYPos() const { return this->m_PosY; }
+		inline unsigned int getXPos() const { return this->m_PosX; }
+		inline unsigned int getYPos() const { return this->m_PosY; }
 
-		inline void setXPos(int x) { this->m_PosX = x; }
-		inline void setYPos(int y) { this->m_PosY = y; }
+		inline void setXPos(unsigned int x) { this->m_PosX = x; }
+		inline void setYPos(unsigned int y) { this->m_PosY = y; }
 
 		friend Position operator+(Position a, const Position& b);
 		friend Position operator-(Position a, const Position& b);

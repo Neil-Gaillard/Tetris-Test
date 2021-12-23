@@ -3,7 +3,7 @@
 namespace position {
 
 	Position::Position() : Position::Position(0, 0) { }
-	Position::Position(int x, int y) : m_PosX(x), m_PosY(y) { }
+	Position::Position(unsigned int x, unsigned int y) : m_PosX(x), m_PosY(y) { }
 
 	Position& Position::add(const Position& other)
 	{
@@ -85,7 +85,7 @@ namespace position {
 
 	std::ostream& operator<<(std::ostream& stream, const Position& pos)
 	{
-		stream << "(" << pos.m_PosX << "," << pos.m_PosY << ")";
+		stream << "Position : (" << pos.m_PosX << "," << pos.m_PosY << ")";
 		return stream;
 	}
 }
