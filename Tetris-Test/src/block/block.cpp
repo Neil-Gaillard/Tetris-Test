@@ -6,7 +6,57 @@ namespace block {
 
 	Block::Block(BlockType blockType) : m_BlockType(blockType)
 	{
+		this->m_blockComponants = new BlockComponant*[NUMBER_COMPONANTS];
+		for (int i = 0; i < NUMBER_COMPONANTS; i++)
+			this->m_blockComponants[i] = new BlockComponant(0, 0);
+		this->defineComponants();
+	}
 
+	void Block::defineComponants()
+	{
+
+	}
+
+	void Block::defineTBlock()
+	{
+
+	}
+
+	void Block::defineIBlock()
+	{
+
+	}
+
+	void Block::defineJBlock()
+	{
+
+	}
+
+	void Block::defineLBlock()
+	{
+
+	}
+
+	void Block::defineOBlock()
+	{
+
+	}
+
+	void Block::defineSBlock()
+	{
+
+	}
+
+	void Block::defineZBlock()
+	{
+
+	}
+
+	Block::~Block()
+	{
+		for (int i = 0; i < NUMBER_COMPONANTS; i++)
+			delete this->m_blockComponants[i];
+		delete[] this->m_blockComponants;
 	}
 
 	Block* Block::instantiateRandomBlock()
