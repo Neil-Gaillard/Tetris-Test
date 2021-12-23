@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../block/blockComponant.hpp"
+#include "../block/block.hpp"
 
 namespace board {
 
@@ -15,6 +16,8 @@ namespace board {
 	public:
 		Board();
 		~Board();
+
+		void placeBlock(const block::Block& block);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Board& board);
 	};

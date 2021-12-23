@@ -21,7 +21,9 @@ namespace block {
 	public:
 		~Block();
 
-		Block* instantiateRandomBlock();
+		static Block* instantiateRandomBlock();
+
+		inline static int getNumberComponants() { return Block::NUMBER_COMPONANTS; }
 
 		inline BlockType getBlockType() const { return this->m_BlockType; }
 
@@ -30,8 +32,7 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
-		void placeBlock();
-		void moveBlock();
+		inline position::Position getPositionAtIndex(const unsigned int i) const { return *this->m_BlockPositions[i]; }
 
 	private:
 		Block(const BlockType blockType);

@@ -10,16 +10,6 @@ namespace block {
 		this->defineComponants();
 	}
 
-	void Block::placeBlock()
-	{
-
-	}
-
-	void Block::moveBlock()
-	{
-
-	}
-
 	void Block::defineComponants()
 	{
 		switch (this->m_BlockType)

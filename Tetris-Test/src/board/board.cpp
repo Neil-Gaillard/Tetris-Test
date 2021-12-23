@@ -22,11 +22,22 @@ namespace board {
 		delete[] this->m_Board;
 	}
 
+	void Board::placeBlock(const block::Block& block)
+	{
+		for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
+			position::Position tmpPos = block.getPositionAtIndex(i);
+			this->m_Board[tmpPos.getXPos()][tmpPos.getYPos()]->setActive(true);
+		}
+	}
+
 	std::ostream& operator<<(std::ostream& stream, const Board& board)
 	{
 		for (int i = 0; i < board.HEIGHT; ++i) {
 			for (int j = 0; j < board.WIDTH; ++j)
-				stream << *(board.m_Board[i][j]);
+				stream << "|" << *(board.m_Board[i][j]);
+			stream << "|" << std::endl;
+			for (int j = 0; j <= board.WIDTH*2; ++j)
+				stream << "-";
 			stream << std::endl;
 		}
 		return stream;
