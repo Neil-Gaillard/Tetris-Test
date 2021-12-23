@@ -8,6 +8,7 @@ namespace block {
 	{
 	private:
 		position::Position m_Pos;
+		bool active;
 
 	public:
 		BlockComponant(unsigned int x, unsigned int y);
