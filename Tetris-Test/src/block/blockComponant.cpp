@@ -17,10 +17,10 @@ namespace block {
 		switch (blockComponant.active) {
 		case true:
 			stream << "*";
-			return stream;
+			break;
 		case false:
 			stream << " ";
-			return stream;
 		}
+		return stream;
 	}
 }
