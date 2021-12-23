@@ -17,6 +17,8 @@ namespace board {
 		Board();
 		~Board();
 
+		inline block::BlockComponant* getBlockComponant(const unsigned int x, const unsigned int y) const { return this->m_Board[y][x]; }
+
 		void placeBlock(const block::Block& block);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Board& board);

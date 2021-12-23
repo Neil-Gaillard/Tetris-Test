@@ -26,7 +26,7 @@ namespace board {
 	{
 		for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
 			maths::Position tmpPos = block.getPositionAtIndex(i);
-			this->m_Board[tmpPos.getXPos()][tmpPos.getYPos()]->setActive(true);
+			this->m_Board[tmpPos.getYPos()][tmpPos.getXPos()]->setActive(true);
 		}
 	}
 

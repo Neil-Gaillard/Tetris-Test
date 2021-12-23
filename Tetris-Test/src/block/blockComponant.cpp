@@ -12,6 +12,20 @@ namespace block {
 
 	}
 
+	GLfloat* BlockComponant::getVertices()
+	{
+		GLfloat vertices[18] =
+		{
+			(GLfloat) this->getPos().getXPos(),        20.0f - (GLfloat) this->getPos().getYPos() - 1.0f, 0.0f,
+			(GLfloat) this->getPos().getXPos(),        20.0f - (GLfloat) this->getPos().getYPos(),        0.0f,
+			(GLfloat) this->getPos().getXPos() + 1.0f, 20.0f - (GLfloat) this->getPos().getYPos(),        0.0f,
+			(GLfloat) this->getPos().getXPos() + 1.0f, 20.0f - (GLfloat) this->getPos().getYPos(),        0.0f,
+			(GLfloat) this->getPos().getXPos() + 1.0f, 20.0f - (GLfloat) this->getPos().getYPos() - 1.0f, 0.0f,
+			(GLfloat) this->getPos().getXPos(),        20.0f - (GLfloat) this->getPos().getYPos() - 1.0f, 0.0f
+		};
+		return vertices;
+	}
+
 	std::ostream& operator<<(std::ostream& stream, const BlockComponant& blockComponant)
 	{
 		switch (blockComponant.active) {

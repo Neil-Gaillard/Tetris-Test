@@ -43,8 +43,8 @@ namespace block {
 	void Block::defineTBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
-		this->m_BlockPositions[2] = new maths::Position(0, 2);
+		this->m_BlockPositions[1] = new maths::Position(1, 0);
+		this->m_BlockPositions[2] = new maths::Position(2, 0);
 		this->m_BlockPositions[3] = new maths::Position(1, 1);
 
 		this->m_MinWidth = 0;
@@ -57,9 +57,9 @@ namespace block {
 	void Block::defineIBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
-		this->m_BlockPositions[2] = new maths::Position(0, 2);
-		this->m_BlockPositions[3] = new maths::Position(0, 3);
+		this->m_BlockPositions[1] = new maths::Position(1, 0);
+		this->m_BlockPositions[2] = new maths::Position(2, 0);
+		this->m_BlockPositions[3] = new maths::Position(3, 0);
 
 
 		this->m_MinWidth = 0;
@@ -71,9 +71,9 @@ namespace block {
 	void Block::defineJBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
+		this->m_BlockPositions[1] = new maths::Position(1, 0);
 		this->m_BlockPositions[2] = new maths::Position(1, 1);
-		this->m_BlockPositions[3] = new maths::Position(2, 1);
+		this->m_BlockPositions[3] = new maths::Position(1, 2);
 
 
 		this->m_MinWidth = 0;
@@ -85,9 +85,9 @@ namespace block {
 	void Block::defineLBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(2, 0);
-		this->m_BlockPositions[3] = new maths::Position(0, 1);
+		this->m_BlockPositions[1] = new maths::Position(0, 1);
+		this->m_BlockPositions[2] = new maths::Position(0, 2);
+		this->m_BlockPositions[3] = new maths::Position(1, 0);
 
 
 		this->m_MinWidth = 0;
@@ -99,8 +99,8 @@ namespace block {
 	void Block::defineOBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
-		this->m_BlockPositions[2] = new maths::Position(1, 0);
+		this->m_BlockPositions[1] = new maths::Position(1, 0);
+		this->m_BlockPositions[2] = new maths::Position(0, 1);
 		this->m_BlockPositions[3] = new maths::Position(1, 1);
 
 
@@ -113,9 +113,9 @@ namespace block {
 	void Block::defineSBlock()
 	{
 		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
+		this->m_BlockPositions[1] = new maths::Position(1, 0);
 		this->m_BlockPositions[2] = new maths::Position(1, 1);
-		this->m_BlockPositions[3] = new maths::Position(1, 2);
+		this->m_BlockPositions[3] = new maths::Position(2, 1);
 
 
 		this->m_MinWidth = 0;
@@ -126,10 +126,10 @@ namespace block {
 
 	void Block::defineZBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(1, 0);
+		this->m_BlockPositions[0] = new maths::Position(0, 1);
 		this->m_BlockPositions[1] = new maths::Position(1, 1);
-		this->m_BlockPositions[2] = new maths::Position(0, 1);
-		this->m_BlockPositions[3] = new maths::Position(0, 2);
+		this->m_BlockPositions[2] = new maths::Position(1, 0);
+		this->m_BlockPositions[3] = new maths::Position(2, 0);
 
 
 		this->m_MinWidth = 0;
