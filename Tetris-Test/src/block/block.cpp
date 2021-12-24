@@ -3,11 +3,15 @@
 #include <random>
 
 namespace block {
-
 	Block::Block(const BlockType blockType) : m_BlockType(blockType)
 	{
 		this->m_BlockPositions = new maths::Position*[NUMBER_COMPONANTS];
 		this->defineComponants();
+	}
+
+	void Block::setCurrent(bool current)
+	{
+		this->current = current;
 	}
 
 	void Block::defineComponants()

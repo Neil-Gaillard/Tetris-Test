@@ -17,7 +17,7 @@ namespace graphics {
 		Shader(const char* vertPath, const char* fragPath);
 		~Shader();
 
-		void enable() const;
+		void enable();
 		void disable() const;
 
 		void setUniform4f(const GLchar* name, const maths::vec4& vector);

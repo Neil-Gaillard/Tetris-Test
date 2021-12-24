@@ -18,6 +18,8 @@ namespace block {
 		unsigned int m_MaxHeight;
 		unsigned int m_MinHeight;
 
+		bool current;
+
 	public:
 		~Block();
 
@@ -32,7 +34,11 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
+		inline bool isCurrent() const { return this->current; }
+
 		inline maths::Position getPositionAtIndex(const unsigned int i) const { return *this->m_BlockPositions[i]; }
+
+		void setCurrent(bool current);
 
 	private:
 		Block(const BlockType blockType);
