@@ -46,16 +46,11 @@ int main(int argc, char* argv)
 
 	bool isThread = false;
 	bool isFirstThread = true;
-	//std::thread first(goDown, &board, block, std::ref(isThread));
 
 	std::thread* first;
 
 	while (!window.closed()) {
 		if (!isThread) {
-			//if (!isFirstThread)
-			//	first->detach();
-			//else
-			//	isFirstThread = true;
 			if (!isFirstBlock)
 				block = block::Block::instantiateRandomBlock();
 			else
