@@ -20,10 +20,10 @@ namespace block {
 
 		inline bool isActive() const { return this->active; }
 
+		GLfloat* getVertices();
+
 		inline void setPosX(const unsigned int x) { this->m_Pos.setXPos(x); }
 		inline void setPosY(const unsigned int y) { this->m_Pos.setYPos(y); }
-
-		GLfloat* getVertices();
 
 		inline void setActive(const bool active) { this->active = active; }
 
