@@ -19,10 +19,11 @@
 
 void updateWindow(const board::Board* board, graphics::Window* window);
 
-void goDown(board::Board* board, block::Block* block, bool &isThread);
+void goDown(board::Board* board, block::Block* block, bool &isThread, int time);
 
 int main(int argc, char* argv)
 {
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
 	srand((unsigned)time(0));
 	
 	graphics::Window window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
@@ -46,8 +47,10 @@ int main(int argc, char* argv)
 
 	bool isThread = false;
 	bool isFirstThread = true;
+	int time = 1000;
 
-	std::thread* first;
+	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), time);
+
 
 	while (!window.closed()) {
 		if (!isThread) {
@@ -55,7 +58,10 @@ int main(int argc, char* argv)
 				block = block::Block::instantiateRandomBlock();
 			else
 				isFirstBlock = false;
-			first = new std::thread(goDown, &board, block, std::ref(isThread));
+			if (!isFirstThread)
+				first = new std::thread(goDown, &board, block, std::ref(isThread), time);
+			else
+				isFirstThread = false;
 			isThread = true;
 		}
 
@@ -65,11 +71,15 @@ int main(int argc, char* argv)
 		if (window.isKeyPressed(GLFW_KEY_LEFT))
 			if (block->moveBlock(direction::Direction::LEFT))
 				board.moveBlock(*block, direction::Direction::LEFT);
+		if (window.isKeyPressed(GLFW_KEY_DOWN))
+			if (block->moveBlock(direction::Direction::DOWN))
+				board.moveBlock(*block, direction::Direction::DOWN);
 
 		updateWindow(&board, &window);
 		//TODO Block collision detection and ground collision detection in the board to launch a new block
 		//TODO destroy a full line of blocks and make the blocks above go down of 1
 	}
+	first->detach();
 	return 0;
 }
 
@@ -91,11 +101,11 @@ void updateWindow(const board::Board* board, graphics::Window* window)
 	window->update();
 }
 
-void goDown(board::Board* board, block::Block* block, bool &isThread)
+void goDown(board::Board* board, block::Block* block, bool &isThread, int time)
 {
 	while (block->moveBlock(direction::Direction::DOWN)) {
 		board->moveBlock(*block, direction::Direction::DOWN);
-		Sleep(500);
+		Sleep(700);
 	}
 	isThread = false;
 }
