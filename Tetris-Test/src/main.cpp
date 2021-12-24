@@ -6,6 +6,9 @@
 #include "maths/vec4.hpp"
 #include "maths/mat4.hpp"
 
+#include <thread>  
+#include <Windows.h>
+
 #define WINDOW_NAME "Tetris Test"
 
 #define WINDOW_HEIGHT 900
@@ -15,6 +18,8 @@
 #define FRAGMENT_SHADER_PATH "src/graphics/shaders/basic.frag"
 
 void updateWindow(const board::Board* board, graphics::Window* window);
+
+void goDown(board::Board* board, block::Block* block);
 
 int main(int argc, char* argv)
 {
@@ -26,8 +31,6 @@ int main(int argc, char* argv)
 	board::Board board;
 	block::Block* block = block::Block::instantiateRandomBlock();
 
-
-	//TODO Thread that makes the block go down at a regular rythm
 	//TODO Place the block in a file, only the last one is the one moving (active block)
 	board.placeBlock(*block);
 
@@ -40,17 +43,16 @@ int main(int argc, char* argv)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
+	std::thread first(goDown, &board, block);
+
 	while (!window.closed()) {
-		//TODO Remplace placeBlock method used here to a moveBlock in the board class that desactivates non used BlockComponants
 		updateWindow(&board, &window);
-		if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
-			block->moveBlock(direction::Direction::RIGHT);
-			board.placeBlock(*block);
-		}
-		else if (window.isKeyPressed(GLFW_KEY_LEFT)) {
-			block->moveBlock(direction::Direction::RIGHT);
-			board.placeBlock(*block);
-		}
+		if (window.isKeyPressed(GLFW_KEY_RIGHT))
+			if(block->moveBlock(direction::Direction::RIGHT))
+				board.moveBlock(*block, direction::Direction::RIGHT);
+		if (window.isKeyPressed(GLFW_KEY_LEFT))
+			if (block->moveBlock(direction::Direction::LEFT))
+				board.moveBlock(*block, direction::Direction::LEFT);
 		//TODO Block collision detection and ground collision detection in the board to launch a new block
 		//TODO destroy a full line of blocks and make the blocks above go down of 1
 	}
@@ -73,4 +75,12 @@ void updateWindow(const board::Board* board, graphics::Window* window)
 		}
 	}
 	window->update();
+}
+
+void goDown(board::Board* board, block::Block* block)
+{
+	while (block->moveBlock(direction::Direction::DOWN)) {
+		Sleep(1000);
+		board->moveBlock(*block, direction::Direction::DOWN);
+	}
 }

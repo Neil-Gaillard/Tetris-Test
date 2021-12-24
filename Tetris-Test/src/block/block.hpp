@@ -14,10 +14,10 @@ namespace block {
 		const BlockType m_BlockType;
 		maths::Position** m_BlockPositions;
 
-		unsigned int m_MaxWidth;
-		unsigned int m_MinWidth;
-		unsigned int m_MaxHeight;
-		unsigned int m_MinHeight;
+		int m_MaxWidth;
+		int m_MinWidth;
+		int m_MaxHeight;
+		int m_MinHeight;
 
 		bool current;
 
@@ -41,7 +41,7 @@ namespace block {
 
 		void setCurrent(bool current);
 
-		void moveBlock(direction::Direction direction);
+		bool moveBlock(direction::Direction direction);
 
 	private:
 		Block(const BlockType blockType);

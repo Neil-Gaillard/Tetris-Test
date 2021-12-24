@@ -16,26 +16,39 @@ namespace block {
 		this->current = current;
 	}
 
-	void Block::moveBlock(direction::Direction direction)
+	bool Block::moveBlock(direction::Direction direction)
 	{
 		switch (direction)
 		{
 		case direction::Direction::LEFT:
-			if (this->m_MinWidth - 1 >= 0) {
+			if (this->m_MinWidth - 1 > -1) {
 				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
 					*this->m_BlockPositions[i] -= maths::Position(1, 0);
+				--this->m_MinWidth;
 				--this->m_MaxWidth;
+				return true;
 			}
-			return;
+			return false;
 		case direction::Direction::RIGHT:
 			if (this->m_MaxWidth + 1 < board::Board::WIDTH) {
 				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
 					*this->m_BlockPositions[i] += maths::Position(1, 0);
 				++this->m_MaxWidth;
+				++this->m_MinWidth;
+				return true;
 			}
-			return;
+			return false;
+		case direction::Direction::DOWN:
+			if (this->m_MaxHeight + 1 < board::Board::HEIGHT) {
+				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+					*this->m_BlockPositions[i] += maths::Position(0, 1);
+				++this->m_MaxHeight;
+				++this->m_MinHeight;
+				return true;
+			}
+			return false;
 		default:
-			throw;
+			return false;
 		}
 	}
 

@@ -30,6 +30,36 @@ namespace board {
 		}
 	}
 
+	void Board::moveBlock(const block::Block& block, direction::Direction direction)
+	{
+		switch (direction)
+		{
+		case direction::Direction::LEFT:
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
+				maths::Position tmpPos = block.getPositionAtIndex(i);
+				this->m_Board[tmpPos.getYPos()][tmpPos.getXPos() + 1]->setActive(false);
+			}
+			this->placeBlock(block);
+			return;
+		case direction::Direction::RIGHT:
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
+				maths::Position tmpPos = block.getPositionAtIndex(i);
+				this->m_Board[tmpPos.getYPos()][tmpPos.getXPos() - 1]->setActive(false);
+			}
+			this->placeBlock(block);
+			return;
+		case direction::Direction::DOWN:
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
+				maths::Position tmpPos = block.getPositionAtIndex(i);
+				this->m_Board[tmpPos.getYPos() - 1][tmpPos.getXPos()]->setActive(false);
+			}
+			this->placeBlock(block);
+			return;
+		default:
+			throw;
+		}
+	}
+
 	std::ostream& operator<<(std::ostream& stream, const Board& board)
 	{
 		for (int i = 0; i < board.HEIGHT; ++i) {
