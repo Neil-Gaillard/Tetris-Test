@@ -2,6 +2,7 @@
 
 #include "blockType.hpp"
 #include "../maths/position.hpp"
+#include "../direction/direction.hpp"
 
 namespace block {
 
@@ -39,6 +40,8 @@ namespace block {
 		inline maths::Position getPositionAtIndex(const unsigned int i) const { return *this->m_BlockPositions[i]; }
 
 		void setCurrent(bool current);
+
+		void moveBlock(direction::Direction direction);
 
 	private:
 		Block(const BlockType blockType);

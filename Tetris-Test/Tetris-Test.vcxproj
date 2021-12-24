@@ -167,6 +167,7 @@
     <ClCompile Include="src\maths\vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\direction\direction.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\board\board.hpp" />
     <ClInclude Include="src\block\blockComponant.hpp" />

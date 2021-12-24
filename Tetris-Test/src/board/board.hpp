@@ -7,10 +7,11 @@ namespace board {
 
 	class Board
 	{
-	private:
-		const unsigned int HEIGHT = 20;
-		const unsigned int WIDTH = 10;
+	public:
+		const static unsigned int HEIGHT = 20;
+		const static unsigned int WIDTH = 10;
 
+	private:
 		block::BlockComponant*** m_Board;
 
 	public:

@@ -1,5 +1,7 @@
 #include "block.hpp"
 
+#include "../board/board.hpp"
+
 #include <random>
 
 namespace block {
@@ -14,31 +16,54 @@ namespace block {
 		this->current = current;
 	}
 
+	void Block::moveBlock(direction::Direction direction)
+	{
+		switch (direction)
+		{
+		case direction::Direction::LEFT:
+			if (this->m_MinWidth - 1 >= 0) {
+				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+					*this->m_BlockPositions[i] -= maths::Position(1, 0);
+				--this->m_MaxWidth;
+			}
+			return;
+		case direction::Direction::RIGHT:
+			if (this->m_MaxWidth + 1 < board::Board::WIDTH) {
+				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+					*this->m_BlockPositions[i] += maths::Position(1, 0);
+				++this->m_MaxWidth;
+			}
+			return;
+		default:
+			throw;
+		}
+	}
+
 	void Block::defineComponants()
 	{
 		switch (this->m_BlockType)
 		{
 		case BlockType::I:
 			this->defineIBlock();
-			break;
+			return;
 		case BlockType::J:
 			this->defineJBlock();
-			break;
+			return;
 		case BlockType::L:
 			this->defineLBlock();
-			break;
+			return;
 		case BlockType::O:
 			this->defineOBlock();
-			break;
+			return;
 		case BlockType::S:
 			this->defineSBlock();
-			break;
+			return;
 		case BlockType::T:
 			this->defineTBlock();
-			break;
+			return;
 		case BlockType::Z:
 			this->defineZBlock();
-			break;
+			return;
 		default:
 			throw;
 		}
