@@ -3,6 +3,10 @@
 #include "../block/blockComponant.hpp"
 #include "../block/block.hpp"
 
+namespace block {
+	class Block;
+}
+
 namespace board {
 
 	class Board

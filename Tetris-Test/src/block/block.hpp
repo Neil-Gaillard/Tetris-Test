@@ -3,6 +3,11 @@
 #include "blockType.hpp"
 #include "../maths/position.hpp"
 #include "../direction/direction.hpp"
+#include "../board/board.hpp"
+
+namespace board {
+	class Board;
+}
 
 namespace block {
 
@@ -41,7 +46,7 @@ namespace block {
 
 		void setCurrent(bool current);
 
-		bool moveBlock(direction::Direction direction);
+		bool moveBlock(const direction::Direction direction, const board::Board* board);
 
 	private:
 		Block(const BlockType blockType);

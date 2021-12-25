@@ -1,7 +1,5 @@
 #include "block.hpp"
 
-#include "../board/board.hpp"
-
 #include <random>
 
 namespace block {
@@ -16,11 +14,16 @@ namespace block {
 		this->current = current;
 	}
 
-	bool Block::moveBlock(direction::Direction direction)
+	bool Block::moveBlock(const direction::Direction direction, const board::Board* board)
 	{
 		switch (direction)
 		{
 		case direction::Direction::LEFT:
+			try {
+				for (int i = m_MinHeight; i < m_MaxHeight; ++i)
+					if (m_MinWidth - 1 > -1 && board->getBlockComponant(this->m_MinWidth - 1, i)->isActive())
+						return false;
+			} catch (const std::runtime_error&) { }
 			if (this->m_MinWidth - 1 > -1) {
 				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
 					*this->m_BlockPositions[i] -= maths::Position(1, 0);
@@ -30,6 +33,11 @@ namespace block {
 			}
 			return false;
 		case direction::Direction::RIGHT:
+			try {
+			for (int i = m_MinHeight; i < m_MaxHeight; ++i)
+				if (m_MaxWidth + 1 < board::Board::WIDTH && board->getBlockComponant(this->m_MaxWidth + 1, i)->isActive())
+					return false;
+			} catch (const std::runtime_error&) { }
 			if (this->m_MaxWidth + 1 < board::Board::WIDTH) {
 				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
 					*this->m_BlockPositions[i] += maths::Position(1, 0);
@@ -39,6 +47,16 @@ namespace block {
 			}
 			return false;
 		case direction::Direction::DOWN:
+			/*for (int i = m_MinWidth; i < m_MaxWidth; ++i)
+				if (m_MaxHeight + 1 < board::Board::HEIGHT && board->getBlockComponant(i, m_MaxHeight + 1)->isActive())
+					return false;*/
+
+			for (int i = 0; i < this->NUMBER_COMPONANTS; ++i) {
+
+			}
+
+
+
 			if (this->m_MaxHeight + 1 < board::Board::HEIGHT) {
 				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
 					*this->m_BlockPositions[i] += maths::Position(0, 1);
@@ -102,7 +120,6 @@ namespace block {
 		this->m_BlockPositions[1] = new maths::Position(1, 0);
 		this->m_BlockPositions[2] = new maths::Position(2, 0);
 		this->m_BlockPositions[3] = new maths::Position(3, 0);
-
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 3;

@@ -66,13 +66,13 @@ int main(int argc, char* argv)
 		}
 
 		if (window.isKeyPressed(GLFW_KEY_RIGHT))
-			if(block->moveBlock(direction::Direction::RIGHT))
+			if(block->moveBlock(direction::Direction::RIGHT, &board))
 				board.moveBlock(*block, direction::Direction::RIGHT);
 		if (window.isKeyPressed(GLFW_KEY_LEFT))
-			if (block->moveBlock(direction::Direction::LEFT))
+			if (block->moveBlock(direction::Direction::LEFT, &board))
 				board.moveBlock(*block, direction::Direction::LEFT);
 		if (window.isKeyPressed(GLFW_KEY_DOWN))
-			if (block->moveBlock(direction::Direction::DOWN))
+			if (block->moveBlock(direction::Direction::DOWN, &board))
 				board.moveBlock(*block, direction::Direction::DOWN);
 
 		updateWindow(&board, &window);
@@ -103,7 +103,7 @@ void updateWindow(const board::Board* board, graphics::Window* window)
 
 void goDown(board::Board* board, block::Block* block, bool &isThread, int time)
 {
-	while (block->moveBlock(direction::Direction::DOWN)) {
+	while (block->moveBlock(direction::Direction::DOWN, board)) {
 		board->moveBlock(*block, direction::Direction::DOWN);
 		Sleep(700);
 	}
