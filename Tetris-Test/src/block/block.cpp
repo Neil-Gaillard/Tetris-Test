@@ -1,17 +1,13 @@
 #include "block.hpp"
+#include "../utils/utils.hpp"
 
+#include <algorithm>
 #include <random>
 
 namespace block {
 	Block::Block(const BlockType blockType) : m_BlockType(blockType)
 	{
-		this->m_BlockPositions = new maths::Position*[NUMBER_COMPONANTS];
 		this->defineComponants();
-	}
-
-	void Block::setCurrent(bool current)
-	{
-		this->current = current;
 	}
 
 	bool Block::moveBlock(const direction::Direction direction, const board::Board* board)
@@ -19,55 +15,43 @@ namespace block {
 		switch (direction)
 		{
 		case direction::Direction::LEFT:
-			try {
-				for (int i = m_MinHeight; i < m_MaxHeight; ++i)
-					if (m_MinWidth - 1 > -1 && board->getBlockComponant(this->m_MinWidth - 1, i)->isActive())
-						return false;
-			} catch (const std::runtime_error&) { }
-			if (this->m_MinWidth - 1 > -1) {
-				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
-					*this->m_BlockPositions[i] -= maths::Position(1, 0);
-				--this->m_MinWidth;
-				--this->m_MaxWidth;
-				return true;
-			}
-			return false;
-		case direction::Direction::RIGHT:
-			try {
-			for (int i = m_MinHeight; i < m_MaxHeight; ++i)
-				if (m_MaxWidth + 1 < board::Board::WIDTH && board->getBlockComponant(this->m_MaxWidth + 1, i)->isActive())
+			if (this->m_MinWidth - 1 < 0)
+				return false;
+			for (int i = 0; i < NUMBER_COMPONANTS; ++i)
+				if (!(std::find(this->m_BlockPos.begin(), this->m_BlockPos.end(), this->m_BlockPos.at(i) - maths::Position(1, 0)) != this->m_BlockPos.end())
+					&& board->getBlockComponant(this->m_BlockPos.at(i).getXPos() - 1, this->m_BlockPos.at(i).getYPos())->isActive())
 					return false;
-			} catch (const std::runtime_error&) { }
-			if (this->m_MaxWidth + 1 < board::Board::WIDTH) {
-				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
-					*this->m_BlockPositions[i] += maths::Position(1, 0);
-				++this->m_MaxWidth;
-				++this->m_MinWidth;
-				return true;
-			}
-			return false;
+			for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+				this->m_BlockPos.at(i) -= maths::Position(1, 0);
+			--this->m_MinWidth;
+			--this->m_MaxWidth;
+			return true;
+		case direction::Direction::RIGHT:
+			if (this->m_MaxWidth + 1 >= board::Board::WIDTH)
+				return false;
+			for (int i = 0; i < NUMBER_COMPONANTS; ++i)
+				if (!(std::find(this->m_BlockPos.begin(), this->m_BlockPos.end(), this->m_BlockPos.at(i) + maths::Position(1, 0)) != this->m_BlockPos.end())
+					&& board->getBlockComponant(this->m_BlockPos.at(i).getXPos() + 1, this->m_BlockPos.at(i).getYPos())->isActive())
+					return false;
+			for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+				this->m_BlockPos.at(i) += maths::Position(1, 0);
+			++this->m_MaxWidth;
+			++this->m_MinWidth;
+			return true;
 		case direction::Direction::DOWN:
-			/*for (int i = m_MinWidth; i < m_MaxWidth; ++i)
-				if (m_MaxHeight + 1 < board::Board::HEIGHT && board->getBlockComponant(i, m_MaxHeight + 1)->isActive())
-					return false;*/
-
-			for (int i = 0; i < this->NUMBER_COMPONANTS; ++i) {
-
-			}
-
-
-
-			if (this->m_MaxHeight + 1 < board::Board::HEIGHT) {
-				for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
-					*this->m_BlockPositions[i] += maths::Position(0, 1);
-				++this->m_MaxHeight;
-				++this->m_MinHeight;
-				return true;
-			}
-			return false;
-		default:
-			return false;
+			if (this->m_MaxHeight + 1 >= board::Board::HEIGHT)
+				return false;
+			for (int i = 0; i < NUMBER_COMPONANTS; ++i)
+				if (!(std::find(this->m_BlockPos.begin(), this->m_BlockPos.end(), this->m_BlockPos.at(i) + maths::Position(0, 1)) != this->m_BlockPos.end())
+					&& board->getBlockComponant(this->m_BlockPos.at(i).getXPos(), this->m_BlockPos.at(i).getYPos() + 1)->isActive())
+						return false;
+			for (int i = 0; i < this->NUMBER_COMPONANTS; ++i)
+				this->m_BlockPos.at(i) += maths::Position(0, 1);
+			++this->m_MaxHeight;
+			++this->m_MinHeight;
+			return true;
 		}
+		return false;
 	}
 
 	void Block::defineComponants()
@@ -102,10 +86,10 @@ namespace block {
 
 	void Block::defineTBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(2, 0);
-		this->m_BlockPositions[3] = new maths::Position(1, 1);
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(2, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 1));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 2;
@@ -116,10 +100,10 @@ namespace block {
 
 	void Block::defineIBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(2, 0);
-		this->m_BlockPositions[3] = new maths::Position(3, 0);
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(2, 0));
+		this->m_BlockPos.push_back(maths::Position(3, 0));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 3;
@@ -129,11 +113,10 @@ namespace block {
 
 	void Block::defineJBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(1, 1);
-		this->m_BlockPositions[3] = new maths::Position(1, 2);
-
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 1));
+		this->m_BlockPos.push_back(maths::Position(1, 2));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 1;
@@ -143,11 +126,10 @@ namespace block {
 
 	void Block::defineLBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(0, 1);
-		this->m_BlockPositions[2] = new maths::Position(0, 2);
-		this->m_BlockPositions[3] = new maths::Position(1, 0);
-
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(0, 1));
+		this->m_BlockPos.push_back(maths::Position(0, 2));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 1;
@@ -157,11 +139,10 @@ namespace block {
 
 	void Block::defineOBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(0, 1);
-		this->m_BlockPositions[3] = new maths::Position(1, 1);
-
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(0, 1));
+		this->m_BlockPos.push_back(maths::Position(1, 1));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 1;
@@ -171,11 +152,10 @@ namespace block {
 
 	void Block::defineSBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 0);
-		this->m_BlockPositions[1] = new maths::Position(1, 0);
-		this->m_BlockPositions[2] = new maths::Position(1, 1);
-		this->m_BlockPositions[3] = new maths::Position(2, 1);
-
+		this->m_BlockPos.push_back(maths::Position(0, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(1, 1));
+		this->m_BlockPos.push_back(maths::Position(2, 1));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 2;
@@ -185,23 +165,15 @@ namespace block {
 
 	void Block::defineZBlock()
 	{
-		this->m_BlockPositions[0] = new maths::Position(0, 1);
-		this->m_BlockPositions[1] = new maths::Position(1, 1);
-		this->m_BlockPositions[2] = new maths::Position(1, 0);
-		this->m_BlockPositions[3] = new maths::Position(2, 0);
-
+		this->m_BlockPos.push_back(maths::Position(0, 1));
+		this->m_BlockPos.push_back(maths::Position(1, 1));
+		this->m_BlockPos.push_back(maths::Position(1, 0));
+		this->m_BlockPos.push_back(maths::Position(2, 0));
 
 		this->m_MinWidth = 0;
 		this->m_MaxWidth = 2;
 		this->m_MinHeight = 0;
 		this->m_MaxHeight = 1;
-	}
-
-	Block::~Block()
-	{
-		for (int i = 0; i < NUMBER_COMPONANTS; i++)
-			delete this->m_BlockPositions[i];
-		delete[] this->m_BlockPositions;
 	}
 
 	Block* Block::instantiateRandomBlock()
