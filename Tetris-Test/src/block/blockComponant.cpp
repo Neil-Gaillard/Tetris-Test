@@ -18,12 +18,12 @@ namespace block {
 	{
 		GLfloat vertices[18] =
 		{
-			this->getPos().getYPos(),        board::Board::HEIGHT - this->getPos().getXPos() - 1.0f, 0.0f,
-			this->getPos().getYPos(),        board::Board::HEIGHT - this->getPos().getXPos(),        0.0f,
-			this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - this->getPos().getXPos(),        0.0f,
-			this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - this->getPos().getXPos(),        0.0f,
-			this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - this->getPos().getXPos() - 1.0f, 0.0f,
-			this->getPos().getYPos(),        board::Board::HEIGHT - this->getPos().getXPos() - 1.0f, 0.0f
+			(GLfloat) this->getPos().getYPos(),        board::Board::HEIGHT - (GLfloat) this->getPos().getXPos() - 1.0f, 0.0f,
+			(GLfloat) this->getPos().getYPos(),        board::Board::HEIGHT - (GLfloat) this->getPos().getXPos(),        0.0f,
+			(GLfloat) this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - (GLfloat) this->getPos().getXPos(),        0.0f,
+			(GLfloat) this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - (GLfloat) this->getPos().getXPos(),        0.0f,
+			(GLfloat) this->getPos().getYPos() + 1.0f, board::Board::HEIGHT - (GLfloat) this->getPos().getXPos() - 1.0f, 0.0f,
+			(GLfloat) this->getPos().getYPos(),        board::Board::HEIGHT - (GLfloat) this->getPos().getXPos() - 1.0f, 0.0f
 		};
 		return vertices;
 	}

@@ -9,6 +9,8 @@
 #include <thread>  
 #include <Windows.h>
 
+#define DEBUG 1
+
 #define WINDOW_NAME "Tetris Test"
 
 #define WINDOW_HEIGHT 900
@@ -23,11 +25,15 @@ void goDown(board::Board* board, block::Block* block, bool &isThread, int time);
 
 int main(int argc, char* argv)
 {
+#if DEBUG
+	ShowWindow(GetConsoleWindow(), SW_SHOW);
+#else
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
+#endif
 	srand((unsigned)time(0));
 	
 	graphics::Window window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
 
 	board::Board board;
 
@@ -51,8 +57,17 @@ int main(int argc, char* argv)
 
 	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), time);
 
-
 	while (!window.closed()) {
+		if (window.isKeyPressed(GLFW_KEY_RIGHT))
+			if(block->moveBlock(direction::Direction::RIGHT, &board))
+				board.moveBlock(*block, direction::Direction::RIGHT);
+		if (window.isKeyPressed(GLFW_KEY_LEFT))
+			if (block->moveBlock(direction::Direction::LEFT, &board))
+				board.moveBlock(*block, direction::Direction::LEFT);
+		if (window.isKeyPressed(GLFW_KEY_DOWN))
+			if (block->moveBlock(direction::Direction::DOWN, &board))
+				board.moveBlock(*block, direction::Direction::DOWN);
+
 		if (!isThread) {
 			if (!isFirstBlock)
 				block = block::Block::instantiateRandomBlock();
@@ -64,16 +79,6 @@ int main(int argc, char* argv)
 				isFirstThread = false;
 			isThread = true;
 		}
-
-		if (window.isKeyPressed(GLFW_KEY_RIGHT))
-			if(block->moveBlock(direction::Direction::RIGHT, &board))
-				board.moveBlock(*block, direction::Direction::RIGHT);
-		if (window.isKeyPressed(GLFW_KEY_LEFT))
-			if (block->moveBlock(direction::Direction::LEFT, &board))
-				board.moveBlock(*block, direction::Direction::LEFT);
-		if (window.isKeyPressed(GLFW_KEY_DOWN))
-			if (block->moveBlock(direction::Direction::DOWN, &board))
-				board.moveBlock(*block, direction::Direction::DOWN);
 
 		updateWindow(&board, &window);
 		//TODO Block collision detection and ground collision detection in the board to launch a new block

@@ -1,6 +1,7 @@
 #include "shader.hpp"
 
-#include <string>
+#include "../utils/utils.hpp"
+
 #include <vector>
 #include <iostream>
 
@@ -16,8 +17,6 @@
 
 
 namespace graphics {
-	std::string read_file(const char* filepath);
-
 	Shader::Shader(const char* vertPath, const char* fragPath)
 		: m_VertexShaderPath(vertPath), m_FragmentShaderPath(fragPath)
 	{
@@ -35,8 +34,8 @@ namespace graphics {
 		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-		std::string vertSourceString = read_file(m_VertexShaderPath);
-		std::string fragSourceString = read_file(m_FragmentShaderPath);
+		std::string vertSourceString = utils::read_file(m_VertexShaderPath);
+		std::string fragSourceString = utils::read_file(m_FragmentShaderPath);
 
 		const char* vertSource = vertSourceString.c_str();
 		const char* fragSource = fragSourceString.c_str();
@@ -110,25 +109,6 @@ namespace graphics {
 	GLint Shader::getUniformLocation(const GLchar* name)
 	{
 		return glGetUniformLocation(m_ShaderID, name);
-	}
-
-	std::string read_file(const char* filepath)
-	{
-		FILE* file = fopen(filepath, "rt");
-		fseek(file, 0, SEEK_END);
-		unsigned long length = ftell(file);
-
-		char* data = new char[length + 1];
-		memset(data, 0, length + 1);
-
-		fseek(file, 0, SEEK_SET);
-		fread(data, 1, length, file);
-		fclose(file);
-
-		std::string result(data);
-		delete[] data;
-
-		return result;
 	}
 
 }

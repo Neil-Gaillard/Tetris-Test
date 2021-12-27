@@ -5,6 +5,8 @@
 #include "../direction/direction.hpp"
 #include "../board/board.hpp"
 
+#include <vector>
+
 namespace board {
 	class Board;
 }
@@ -17,18 +19,14 @@ namespace block {
 		const static int NUMBER_COMPONANTS = 4;
 
 		const BlockType m_BlockType;
-		maths::Position** m_BlockPositions;
+		std::vector<maths::Position> m_BlockPos;
 
 		int m_MaxWidth;
 		int m_MinWidth;
 		int m_MaxHeight;
 		int m_MinHeight;
 
-		bool current;
-
 	public:
-		~Block();
-
 		static Block* instantiateRandomBlock();
 
 		inline static int getNumberComponants() { return Block::NUMBER_COMPONANTS; }
@@ -40,11 +38,7 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
-		inline bool isCurrent() const { return this->current; }
-
-		inline maths::Position getPositionAtIndex(const unsigned int i) const { return *this->m_BlockPositions[i]; }
-
-		void setCurrent(bool current);
+		inline maths::Position getPositionAtIndex(const unsigned int i) const { return this->m_BlockPos.at(i); }
 
 		bool moveBlock(const direction::Direction direction, const board::Board* board);
 
