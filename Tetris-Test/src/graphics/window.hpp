@@ -34,6 +34,7 @@ namespace graphics {
 
 	private:
 		bool init();
+		friend void window_resize(GLFWwindow* window, int width, int height);
 		friend static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	};
 }

@@ -54,6 +54,12 @@ namespace block {
 		return false;
 	}
 
+	bool Block::rotateBlock(direction::Direction direction, const board::Board* board)
+	{
+		// x2 = cos(45) * x1 - sin(45)*y1
+		// y2 = sin(45) * x1 + cos(45)*y1
+	}
+
 	void Block::defineComponants()
 	{
 		switch (this->m_BlockType)

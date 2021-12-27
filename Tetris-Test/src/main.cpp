@@ -21,7 +21,7 @@
 
 void updateWindow(const board::Board* board, graphics::Window* window);
 
-void goDown(board::Board* board, block::Block* block, bool &isThread, int time);
+void goDown(board::Board* board, block::Block* block, bool &isThread);
 
 int main(int argc, char* argv)
 {
@@ -53,11 +53,12 @@ int main(int argc, char* argv)
 
 	bool isThread = false;
 	bool isFirstThread = true;
-	int time = 1000;
 
-	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), time);
+	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread));
 
 	while (!window.closed()) {
+		window.update();
+
 		if (window.isKeyPressed(GLFW_KEY_RIGHT))
 			if(block->moveBlock(direction::Direction::RIGHT, &board))
 				board.moveBlock(*block, direction::Direction::RIGHT);
@@ -103,10 +104,9 @@ void updateWindow(const board::Board* board, graphics::Window* window)
 			}
 		}
 	}
-	window->update();
 }
 
-void goDown(board::Board* board, block::Block* block, bool &isThread, int time)
+void goDown(board::Board* board, block::Block* block, bool &isThread)
 {
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
 		board->moveBlock(*block, direction::Direction::DOWN);

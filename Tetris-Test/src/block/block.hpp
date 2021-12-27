@@ -41,6 +41,7 @@ namespace block {
 		inline maths::Position getPositionAtIndex(const unsigned int i) const { return this->m_BlockPos.at(i); }
 
 		bool moveBlock(const direction::Direction direction, const board::Board* board);
+		bool rotateBlock(direction::Direction direction, const board::Board* board);
 
 	private:
 		Block(const BlockType blockType);
