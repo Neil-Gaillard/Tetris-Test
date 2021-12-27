@@ -4,12 +4,12 @@
 
 namespace block {
 
-	BlockComponant::BlockComponant(unsigned int x, unsigned int y, bool active) : m_Pos(x, y), active(active)
+	BlockComponant::BlockComponant(unsigned int x, unsigned int y, maths::vec4 color, bool active) : m_Pos(x, y), active(active), m_Color(color)
 	{
 
 	}
 
-	BlockComponant::BlockComponant(unsigned int x, unsigned int y) : BlockComponant(x, y, false)
+	BlockComponant::BlockComponant(unsigned int x, unsigned int y, maths::vec4 color) : BlockComponant(x, y, color, false)
 	{
 
 	}

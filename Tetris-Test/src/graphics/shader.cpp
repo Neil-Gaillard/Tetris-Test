@@ -6,7 +6,6 @@
 #include <iostream>
 
 #define PROJECTION_MATRIX "projection_matrix"
-#define COLOR_MATRIX "given_color"
 
 #define LEFT 0.0F
 #define RIGHT 10.0F
@@ -88,7 +87,6 @@ namespace graphics {
 
 		maths::mat4 orthographic = maths::mat4::orthographic(LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR);
 		setUniformMat4(PROJECTION_MATRIX, orthographic);
-		setUniform4f(COLOR_MATRIX, maths::vec4(0.2f, 0.3f, 0.8f, 1.0f));
 	}
 
 	void Shader::disable() const
@@ -110,5 +108,4 @@ namespace graphics {
 	{
 		return glGetUniformLocation(m_ShaderID, name);
 	}
-
 }

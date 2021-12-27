@@ -27,6 +27,9 @@ namespace board {
 		void placeBlock(const block::Block& block);
 		void moveBlock(const block::Block& block, direction::Direction direction);
 
+		void verifLine(const block::Block& block);
+#if 0
 		friend std::ostream& operator<<(std::ostream& stream, const Board& board);
+#endif
 	};
 }

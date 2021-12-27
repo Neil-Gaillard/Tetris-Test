@@ -2,6 +2,7 @@
 
 #include "blockType.hpp"
 #include "../maths/position.hpp"
+#include "../maths/vec4.hpp"
 #include "../direction/direction.hpp"
 #include "../board/board.hpp"
 
@@ -32,16 +33,18 @@ namespace block {
 		inline static int getNumberComponants() { return Block::NUMBER_COMPONANTS; }
 
 		inline BlockType getBlockType() const { return this->m_BlockType; }
+		maths::vec4 getColorFromType() const;
+		
 
 		inline unsigned int getMaxWidth() const { return this->m_MaxWidth; }
 		inline unsigned int getMinWidth() const { return this->m_MinWidth; }
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
-		inline maths::Position getPositionAtIndex(const unsigned int i) const { return this->m_BlockPos.at(i); }
+		inline maths::Position getPositionAt(const unsigned int i) const { return this->m_BlockPos.at(i); }
 
 		bool moveBlock(const direction::Direction direction, const board::Board* board);
-		bool rotateBlock(direction::Direction direction, const board::Board* board);
+		bool rotateBlock(const board::Board* board);
 
 	private:
 		Block(const BlockType blockType);

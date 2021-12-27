@@ -5,6 +5,7 @@ namespace direction {
 	{
 		LEFT,
 		RIGHT,
-		DOWN
+		DOWN,
+		UP //ROTATION
 	};
 }

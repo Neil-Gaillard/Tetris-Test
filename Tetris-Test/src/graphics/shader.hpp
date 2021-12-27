@@ -20,11 +20,12 @@ namespace graphics {
 		void enable();
 		void disable() const;
 
-	private:
-		GLuint load();
 		GLint getUniformLocation(const GLchar* name);
 		
 		void setUniform4f(const GLchar* name, const maths::vec4& vector);
 		void setUniformMat4(const GLchar* name, const maths::mat4& matrix);
+
+	private:
+		GLuint load();
 	};
 }

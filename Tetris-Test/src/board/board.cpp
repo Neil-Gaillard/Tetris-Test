@@ -8,7 +8,7 @@ namespace board {
 		for (int i = 0; i < HEIGHT; i++) {
 			this->m_Board[i] = new block::BlockComponant * [WIDTH];
 			for (int j = 0; j < WIDTH; j++)
-				this->m_Board[i][j] = new block::BlockComponant(i, j);
+				this->m_Board[i][j] = new block::BlockComponant(i, j, maths::vec4(0,0,0,0));
 		}
 	}
 
@@ -25,8 +25,8 @@ namespace board {
 	void Board::placeBlock(const block::Block& block)
 	{
 		for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-			maths::Position tmpPos = block.getPositionAtIndex(i);
-			this->m_Board[tmpPos.getYPos()][tmpPos.getXPos()]->setActive(true);
+			this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos()]->setActive(true);
+			this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos()]->setColor(block.getColorFromType());
 		}
 	}
 
@@ -35,31 +35,29 @@ namespace board {
 		switch (direction)
 		{
 		case direction::Direction::LEFT:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-				maths::Position tmpPos = block.getPositionAtIndex(i);
-				this->m_Board[tmpPos.getYPos()][tmpPos.getXPos() + 1]->setActive(false);
-			}
-			this->placeBlock(block);
-			return;
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
+				this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos() + 1]->setActive(false);
+			break;
 		case direction::Direction::RIGHT:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-				maths::Position tmpPos = block.getPositionAtIndex(i);
-				this->m_Board[tmpPos.getYPos()][tmpPos.getXPos() - 1]->setActive(false);
-			}
-			this->placeBlock(block);
-			return;
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
+				this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos() - 1]->setActive(false);
+			break;
 		case direction::Direction::DOWN:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-				maths::Position tmpPos = block.getPositionAtIndex(i);
-				this->m_Board[tmpPos.getYPos() - 1][tmpPos.getXPos()]->setActive(false);
-			}
-			this->placeBlock(block);
-			return;
-		default:
-			throw;
+			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
+				this->m_Board[block.getPositionAt(i).getYPos() - 1][block.getPositionAt(i).getXPos()]->setActive(false);
+			break;
+		case direction::Direction::UP:
+			break;
 		}
+		this->placeBlock(block);
 	}
 
+	void Board::verifLine(const block::Block& block)
+	{
+
+	}
+
+#if 0
 	std::ostream& operator<<(std::ostream& stream, const Board& board)
 	{
 		for (int i = 0; i < board.HEIGHT; ++i) {
@@ -72,4 +70,5 @@ namespace board {
 		}
 		return stream;
 	}
+#endif
 }
