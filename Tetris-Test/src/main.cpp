@@ -86,7 +86,6 @@ int main(int argc, char* argv)
 		}
 
 		updateWindow(&board, &window, &shader);
-		//TODO destroy a full line of blocks and make the blocks above go down of 1
 	}
 	first->detach();
 	shader.disable();
@@ -114,10 +113,11 @@ void updateWindow(const board::Board* board, graphics::Window* window, graphics:
 
 void goDown(board::Board* board, block::Block* block, bool &isThread)
 {
-	Sleep(TIME);
+	Sleep(600);
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
 		board->moveBlock(*block, direction::Direction::DOWN);
 		Sleep(TIME);
 	}
+	board->verifLine(*block);
 	isThread = false;
 }

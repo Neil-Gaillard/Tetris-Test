@@ -54,7 +54,25 @@ namespace board {
 
 	void Board::verifLine(const block::Block& block)
 	{
-
+		bool verif = true;
+		int goal = block.getMinHeight();
+		for (int i = block.getMaxHeight(); i >= goal; --i) {
+			verif = true;
+			for (int j = 0; j < Board::WIDTH; ++j)
+				verif = verif && this->m_Board[i][j]->isActive();
+			if (verif) {
+				for (int j = 0; j < Board::WIDTH; ++j)
+					this->m_Board[i][j]->setActive(false);
+				for (int j = i; j > 0; --j) {
+					for (int k = 0;  k < Board::WIDTH; ++k) {
+						this->m_Board[j][k]->setActive(this->m_Board[j - 1][k]->isActive());
+						this->m_Board[j][k]->setColor(this->m_Board[j - 1][k]->getColor());
+					}
+				}
+				++i;
+				++goal;
+			}
+		}
 	}
 
 #if 0
