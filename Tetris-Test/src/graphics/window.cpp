@@ -9,8 +9,11 @@ namespace graphics {
 	{
 		if (!init())
 			glfwTerminate();
-		for (int i = 0; i < MAX_KEYS; i++)
+		for (int i = 0; i < MAX_KEYS; i++) {
 			m_keys[i] = false;
+			m_keysWasPressed[i] = false;
+		}
+
 	}
 
 	Window::~Window()
@@ -36,7 +39,6 @@ namespace graphics {
 
 		if (glewInit() != GLEW_OK)
 			return false;
-
 		return true;
 	}
 
@@ -66,8 +68,10 @@ namespace graphics {
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Window* win = (Window*)glfwGetWindowUserPointer(window);
-		win->m_keys[key] = (action == GLFW_PRESS) && !(win->m_keys[key]);
-		
+		win->m_keys[key] = ((action == GLFW_PRESS) && ((win->m_keysWasPressed[key]) == false));
+		win->m_keysWasPressed[key] = true;
+		if (action == GLFW_RELEASE)
+			win->m_keysWasPressed[key] = false;
 	}
 
 	void window_resize(GLFWwindow* window, int width, int height)

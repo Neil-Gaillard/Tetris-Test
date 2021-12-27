@@ -85,4 +85,9 @@
     <None Include="src\graphics\shaders\basic.vert" />
     <None Include="src\graphics\shaders\basic.frag" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\tetris-theme-officiel_01.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

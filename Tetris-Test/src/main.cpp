@@ -58,6 +58,8 @@ int main(int argc, char* argv)
 	bool isThread = false;
 	bool isFirstThread = true;
 
+	PlaySound(L"audio/tetris-theme-officiel_01.wav", NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+
 	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread));
 
 	while (!window.closed()) {
