@@ -16,7 +16,7 @@ namespace block {
 
 	GLfloat* BlockComponant::getVertices()
 	{
-		GLfloat vertices[18] =
+		GLfloat vertices[18] = 
 		{
 			(GLfloat) this->getPos().getYPos(),        board::Board::HEIGHT - (GLfloat) this->getPos().getXPos() - 1.0f, 0.0f,
 			(GLfloat) this->getPos().getYPos(),        board::Board::HEIGHT - (GLfloat) this->getPos().getXPos(),        0.0f,

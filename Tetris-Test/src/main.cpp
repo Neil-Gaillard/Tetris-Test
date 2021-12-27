@@ -1,3 +1,6 @@
+#include <thread>  
+#include <Windows.h>
+
 #include "board/board.hpp"
 
 #include "graphics/window.hpp"
@@ -6,10 +9,7 @@
 #include "maths/vec4.hpp"
 #include "maths/mat4.hpp"
 
-#include <thread>  
-#include <Windows.h>
-
-#define DEBUG 1
+#define DEBUG 0
 
 #define WINDOW_NAME "Tetris Test"
 
