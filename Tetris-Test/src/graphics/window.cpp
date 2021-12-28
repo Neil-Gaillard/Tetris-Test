@@ -11,7 +11,7 @@ namespace graphics {
 			glfwTerminate();
 		for (int i = 0; i < MAX_KEYS; i++) {
 			m_keys[i] = false;
-			m_keysWasPressed[i] = false;
+			m_keysWasPressed[i] = true;
 		}
 
 	}
@@ -35,6 +35,7 @@ namespace graphics {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetWindowSizeCallback(m_Window, window_resize);
+		glfwSetInputMode(m_Window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		glfwSetKeyCallback(m_Window, key_callback);
 
 		if (glewInit() != GLEW_OK)
@@ -68,10 +69,7 @@ namespace graphics {
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Window* win = (Window*)glfwGetWindowUserPointer(window);
-		win->m_keys[key] = ((action == GLFW_PRESS) && ((win->m_keysWasPressed[key]) == false));
-		win->m_keysWasPressed[key] = true;
-		if (action == GLFW_RELEASE)
-			win->m_keysWasPressed[key] = false;
+		win->m_keys[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
 	void window_resize(GLFWwindow* window, int width, int height)

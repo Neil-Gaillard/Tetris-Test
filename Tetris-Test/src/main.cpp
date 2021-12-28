@@ -36,7 +36,7 @@ int main(int argc, char* argv)
 #endif
 	srand((unsigned)time(0));
 	
-	graphics::Window window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
+	graphics::Window* window = new graphics::Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	glClearColor(0.8f, 0.8f, 0.8f, 0.8f);
 
 	board::Board board;
@@ -46,8 +46,8 @@ int main(int argc, char* argv)
 
 	board.placeBlock(*block);
 
-	graphics::Shader shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
-	shader.enable();
+	graphics::Shader* shader = new graphics::Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+	shader->enable();
 
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
@@ -62,16 +62,16 @@ int main(int argc, char* argv)
 
 	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread));
 
-	while (!window.closed()) {
-		if (window.isKeyPressed(GLFW_KEY_RIGHT) && block->moveBlock(direction::Direction::RIGHT, &board))
+	while (!window->closed()) {
+		if (window->isKeyPressed(GLFW_KEY_RIGHT) && block->moveBlock(direction::Direction::RIGHT, &board))
 				board.moveBlock(*block, direction::Direction::RIGHT);
-		if (window.isKeyPressed(GLFW_KEY_LEFT) && block->moveBlock(direction::Direction::LEFT, &board))
+		if (window->isKeyPressed(GLFW_KEY_LEFT) && block->moveBlock(direction::Direction::LEFT, &board))
 				board.moveBlock(*block, direction::Direction::LEFT);
-		if (window.isKeyPressed(GLFW_KEY_DOWN) && block->moveBlock(direction::Direction::DOWN, &board))
+		if (window->isKeyPressed(GLFW_KEY_DOWN) && block->moveBlock(direction::Direction::DOWN, &board))
 				board.moveBlock(*block, direction::Direction::DOWN);
-		//TODO rotation
-		if (window.isKeyPressed(GLFW_KEY_UP) && block->rotateBlock(&board))
-				board.moveBlock(*block, direction::Direction::UP);
+		if (window->isKeyPressed(GLFW_KEY_UP) && block->rotateBlock(&board))
+				board.placeBlock(*block);
+		Sleep(40);
 
 		if (!isThread) {
 			if (!isFirstBlock) {
@@ -87,10 +87,10 @@ int main(int argc, char* argv)
 			isThread = true;
 		}
 
-		updateWindow(&board, &window, &shader);
+		updateWindow(&board, window, shader);
 	}
 	first->detach();
-	shader.disable();
+	shader->disable();
 	return 0;
 }
 
@@ -113,13 +113,14 @@ void updateWindow(const board::Board* board, graphics::Window* window, graphics:
 	window->update();
 }
 
-void goDown(board::Board* board, block::Block* block, bool &isThread)
+void goDown(board::Board* board, block::Block* block, bool& isThread)
 {
 	Sleep(600);
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
 		board->moveBlock(*block, direction::Direction::DOWN);
 		Sleep(TIME);
 	}
+	Sleep(100);
 	board->verifLine(*block);
 	isThread = false;
 }

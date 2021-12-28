@@ -56,5 +56,7 @@ namespace block {
 		void defineOBlock();
 		void defineSBlock();
 		void defineZBlock();
+
+		void updateBordersFromPositions();
 	};
 }

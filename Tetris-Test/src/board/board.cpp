@@ -52,6 +52,10 @@ namespace board {
 		this->placeBlock(block);
 	}
 
+	void Board::rotateBlock(const block::Block& block)
+	{
+	}
+
 	void Board::verifLine(const block::Block& block)
 	{
 		bool verif = true;

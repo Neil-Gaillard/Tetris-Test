@@ -26,6 +26,7 @@ namespace board {
 
 		void placeBlock(const block::Block& block);
 		void moveBlock(const block::Block& block, direction::Direction direction);
+		void rotateBlock(const block::Block& block);
 
 		void verifLine(const block::Block& block);
 #if 0
