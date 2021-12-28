@@ -79,16 +79,6 @@ int main(int argc, char* argv)
 	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), std::ref(score));
 
 	while (!window->closed()) {
-		if (window->isKeyPressed(GLFW_KEY_RIGHT) && block->moveBlock(direction::Direction::RIGHT, &board))
-				board.moveBlock(*block, direction::Direction::RIGHT);
-		if (window->isKeyPressed(GLFW_KEY_LEFT) && block->moveBlock(direction::Direction::LEFT, &board))
-				board.moveBlock(*block, direction::Direction::LEFT);
-		if (window->isKeyPressed(GLFW_KEY_DOWN) && block->moveBlock(direction::Direction::DOWN, &board))
-				board.moveBlock(*block, direction::Direction::DOWN);
-		if (window->isKeyPressed(GLFW_KEY_UP) && block->rotateBlock(&board))
-				board.placeBlock(*block);
-		Sleep(INPUT_DELAY);
-
 		if (!isThread) {
 			if (!isFirstBlock) {
 				block = block::Block::instantiateRandomBlock();
@@ -102,6 +92,16 @@ int main(int argc, char* argv)
 				isFirstThread = false;
 			isThread = true;
 		}
+		if (window->isKeyPressed(GLFW_KEY_RIGHT) && block->moveBlock(direction::Direction::RIGHT, &board))
+				board.moveBlock(*block, direction::Direction::RIGHT);
+		if (window->isKeyPressed(GLFW_KEY_LEFT) && block->moveBlock(direction::Direction::LEFT, &board))
+				board.moveBlock(*block, direction::Direction::LEFT);
+		if (window->isKeyPressed(GLFW_KEY_DOWN) && block->moveBlock(direction::Direction::DOWN, &board))
+				board.moveBlock(*block, direction::Direction::DOWN);
+		if (window->isKeyPressed(GLFW_KEY_UP) && block->rotateBlock(&board))
+				board.placeBlock(*block);
+		Sleep(INPUT_DELAY);
+
 		updateWindow(&board, window, shader);
 	}
 	first->detach();
