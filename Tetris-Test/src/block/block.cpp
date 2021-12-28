@@ -223,13 +223,13 @@ namespace block {
 		int tmpMaxWidth = this->m_BlockPos.at(0).getXPos();
 
 		for (int i = 0; i < NUMBER_COMPONANTS; ++i) {
-			if (this->m_BlockPos.at(i).getYPos() <= tmpMinHeight)
+			if (this->m_BlockPos.at(i).getYPos() < tmpMinHeight)
 				tmpMinHeight = this->m_BlockPos.at(i).getYPos();
-			if (this->m_BlockPos.at(i).getYPos() >= tmpMaxHeight)
+			if (this->m_BlockPos.at(i).getYPos() > tmpMaxHeight)
 				tmpMaxHeight = this->m_BlockPos.at(i).getYPos();
-			if (this->m_BlockPos.at(i).getXPos() <= tmpMinWidth)
+			if (this->m_BlockPos.at(i).getXPos() < tmpMinWidth)
 				tmpMinWidth = this->m_BlockPos.at(i).getXPos();
-			if (this->m_BlockPos.at(i).getXPos() >= tmpMaxWidth)
+			if (this->m_BlockPos.at(i).getXPos() > tmpMaxWidth)
 				tmpMaxWidth = this->m_BlockPos.at(i).getXPos();
 		}
 
@@ -280,6 +280,8 @@ namespace block {
 			return maths::vec4(0.5f, 0.0f, 1.0f, 1.0f);
 		case BlockType::Z:
 			return maths::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+		default:
+			throw;
 		}
 	}
 }

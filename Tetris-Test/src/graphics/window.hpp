@@ -17,7 +17,6 @@ namespace graphics {
 		bool m_Closed;
 
 		bool m_keys[MAX_KEYS];
-		bool m_keysWasPressed[MAX_KEYS];
 
 	public:
 		Window(const unsigned int width, const unsigned int height, const char* title);

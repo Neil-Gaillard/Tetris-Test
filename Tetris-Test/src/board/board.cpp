@@ -52,10 +52,6 @@ namespace board {
 		this->placeBlock(block);
 	}
 
-	void Board::rotateBlock(const block::Block& block)
-	{
-	}
-
 	void Board::verifLine(const block::Block& block)
 	{
 		bool verif = true;
@@ -78,19 +74,4 @@ namespace board {
 			}
 		}
 	}
-
-#if 0
-	std::ostream& operator<<(std::ostream& stream, const Board& board)
-	{
-		for (int i = 0; i < board.HEIGHT; ++i) {
-			for (int j = 0; j < board.WIDTH; ++j)
-				stream << "|" << *(board.m_Board[i][j]);
-			stream << "|" << std::endl;
-			for (int j = 0; j <= board.WIDTH*2; ++j)
-				stream << "-";
-			stream << std::endl;
-		}
-		return stream;
-	}
-#endif
 }

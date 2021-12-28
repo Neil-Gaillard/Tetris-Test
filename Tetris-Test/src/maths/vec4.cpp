@@ -36,24 +36,6 @@ namespace maths {
 		return *this;
 	}
 
-	vec4& vec4::multiply(const vec4& other)
-	{
-		this->x *= other.x;
-		this->y *= other.y;
-		this->z *= other.z;
-		this->w *= other.w;
-		return *this;
-	}
-
-	vec4& vec4::divide(const vec4& other)
-	{
-		this->x /= other.x;
-		this->y /= other.y;
-		this->z /= other.z;
-		this->w /= other.w;
-		return *this;
-	}
-
 	vec4 operator+(vec4 left, const vec4& right)
 	{
 		return left.add(right);
@@ -62,16 +44,6 @@ namespace maths {
 	vec4 operator-(vec4 left, const vec4& right)
 	{
 		return left.substract(right);
-	}
-
-	vec4 operator*(vec4 left, const vec4& right)
-	{
-		return left.multiply(right);
-	}
-
-	vec4 operator/(vec4 left, const vec4& right)
-	{
-		return left.divide(right);
 	}
 
 	vec4& vec4::operator+=(const vec4& other)
@@ -84,16 +56,6 @@ namespace maths {
 		return substract(other);
 	}
 
-	vec4& vec4::operator*=(const vec4& other)
-	{
-		return multiply(other);
-	}
-
-	vec4& vec4::operator/=(const vec4& other)
-	{
-		return divide(other);
-	}
-
 	bool vec4::operator==(const vec4& other)
 	{
 		return (x == other.x && y == other.y && z == other.z && w == other.w);
@@ -103,11 +65,4 @@ namespace maths {
 	{
 		return !(*this == other);
 	}
-
-	std::ostream& operator<<(std::ostream& stream, const vec4& vector)
-	{
-		stream << "vec 2 : (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
-		return stream;
-	}
-
 }

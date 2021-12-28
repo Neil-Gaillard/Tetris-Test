@@ -9,11 +9,8 @@ namespace graphics {
 	{
 		if (!init())
 			glfwTerminate();
-		for (int i = 0; i < MAX_KEYS; i++) {
+		for (int i = 0; i < MAX_KEYS; i++)
 			m_keys[i] = false;
-			m_keysWasPressed[i] = true;
-		}
-
 	}
 
 	Window::~Window()
@@ -35,7 +32,6 @@ namespace graphics {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetWindowSizeCallback(m_Window, window_resize);
-		glfwSetInputMode(m_Window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		glfwSetKeyCallback(m_Window, key_callback);
 
 		if (glewInit() != GLEW_OK)

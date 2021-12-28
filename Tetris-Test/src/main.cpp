@@ -9,19 +9,31 @@
 #include "maths/vec4.hpp"
 #include "maths/mat4.hpp"
 
-#define DEBUG 0
+#define DEBUG 1
+#define MUSIC 1
 
 #define WINDOW_NAME "Tetris Test"
 
 #define WINDOW_HEIGHT 900
 #define WINDOW_WIDTH 450
 
+#if DEBUG
 #define VERTEX_SHADER_PATH "src/graphics/shaders/basic.vert"
 #define FRAGMENT_SHADER_PATH "src/graphics/shaders/basic.frag"
+#else
+#define VERTEX_SHADER_PATH "shaders/basic.vert"
+#define FRAGMENT_SHADER_PATH "shaders/basic.frag"
+#endif
+
+#define AUDIO_MUSIC_PATH L"audio/tetris-theme-officiel_01.wav"
 
 #define COLOR_MATRIX "given_color"
 
-#define TIME 700
+#define INPUT_DELAY 40
+
+#define BLOCK_SPAWN_TIME 600
+#define BLOCK_FALL_TIME 700
+#define BLOCK_SETUP_TIME 100
 
 void updateWindow(const board::Board* board, graphics::Window* window, graphics::Shader* shader);
 
@@ -58,7 +70,9 @@ int main(int argc, char* argv)
 	bool isThread = false;
 	bool isFirstThread = true;
 
-	PlaySound(L"audio/tetris-theme-officiel_01.wav", NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+#if MUSIC
+	PlaySound(AUDIO_MUSIC_PATH, NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+#endif
 
 	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread));
 
@@ -71,7 +85,7 @@ int main(int argc, char* argv)
 				board.moveBlock(*block, direction::Direction::DOWN);
 		if (window->isKeyPressed(GLFW_KEY_UP) && block->rotateBlock(&board))
 				board.placeBlock(*block);
-		Sleep(40);
+		Sleep(INPUT_DELAY);
 
 		if (!isThread) {
 			if (!isFirstBlock) {
@@ -86,7 +100,6 @@ int main(int argc, char* argv)
 				isFirstThread = false;
 			isThread = true;
 		}
-
 		updateWindow(&board, window, shader);
 	}
 	first->detach();
@@ -115,12 +128,12 @@ void updateWindow(const board::Board* board, graphics::Window* window, graphics:
 
 void goDown(board::Board* board, block::Block* block, bool& isThread)
 {
-	Sleep(600);
+	Sleep(BLOCK_SPAWN_TIME);
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
 		board->moveBlock(*block, direction::Direction::DOWN);
-		Sleep(TIME);
+		Sleep(BLOCK_FALL_TIME);
 	}
-	Sleep(100);
+	Sleep(BLOCK_SETUP_TIME);
 	board->verifLine(*block);
 	isThread = false;
 }

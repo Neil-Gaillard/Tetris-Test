@@ -32,7 +32,5 @@ namespace block {
 		inline void setActive(const bool active) { this->active = active; }
 
 		inline void setColor(const maths::vec4 color) { this->m_Color = color; }
-
-		friend std::ostream& operator<<(std::ostream& stream, const BlockComponant& blockComponant);
 	};
 }

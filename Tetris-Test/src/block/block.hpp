@@ -1,9 +1,12 @@
 #pragma once
 
 #include "blockType.hpp"
+
 #include "../maths/position.hpp"
 #include "../maths/vec4.hpp"
+
 #include "../direction/direction.hpp"
+
 #include "../board/board.hpp"
 
 #include <vector>
@@ -35,7 +38,6 @@ namespace block {
 		inline BlockType getBlockType() const { return this->m_BlockType; }
 		maths::vec4 getColorFromType() const;
 		
-
 		inline unsigned int getMaxWidth() const { return this->m_MaxWidth; }
 		inline unsigned int getMinWidth() const { return this->m_MinWidth; }
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }

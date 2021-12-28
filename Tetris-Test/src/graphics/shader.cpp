@@ -14,7 +14,6 @@
 #define NEAR -1.0F
 #define FAR 1.0F
 
-
 namespace graphics {
 	Shader::Shader(const char* vertPath, const char* fragPath)
 		: m_VertexShaderPath(vertPath), m_FragmentShaderPath(fragPath)

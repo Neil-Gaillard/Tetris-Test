@@ -27,16 +27,4 @@ namespace block {
 		};
 		return vertices;
 	}
-
-	std::ostream& operator<<(std::ostream& stream, const BlockComponant& blockComponant)
-	{
-		switch (blockComponant.active) {
-		case true:
-			stream << "*";
-			break;
-		case false:
-			stream << " ";
-		}
-		return stream;
-	}
 }
