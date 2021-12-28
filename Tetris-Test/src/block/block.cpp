@@ -152,15 +152,15 @@ namespace block {
 
 	void Block::defineJBlock()
 	{
+		this->m_BlockPos.push_back(maths::Position((board::Board::WIDTH / 2) - 2, 0));
 		this->m_BlockPos.push_back(maths::Position((board::Board::WIDTH / 2) - 1, 0));
 		this->m_BlockPos.push_back(maths::Position((board::Board::WIDTH / 2), 0));
 		this->m_BlockPos.push_back(maths::Position((board::Board::WIDTH / 2), 1));
-		this->m_BlockPos.push_back(maths::Position((board::Board::WIDTH / 2), 2));
 
-		this->m_MinWidth = (board::Board::WIDTH / 2) - 1;
+		this->m_MinWidth = (board::Board::WIDTH / 2) - 2;
 		this->m_MaxWidth = (board::Board::WIDTH / 2);
 		this->m_MinHeight = 0;
-		this->m_MaxHeight = 2;
+		this->m_MaxHeight = 1;
 	}
 
 	void Block::defineLBlock()

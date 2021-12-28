@@ -37,7 +37,7 @@
 
 void updateWindow(const board::Board* board, graphics::Window* window, graphics::Shader* shader);
 
-void goDown(board::Board* board, block::Block* block, bool &isThread);
+void goDown(board::Board* board, block::Block* block, bool &isThread, int &score);
 
 int main(int argc, char* argv)
 {
@@ -74,7 +74,9 @@ int main(int argc, char* argv)
 	PlaySound(AUDIO_MUSIC_PATH, NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 #endif
 
-	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread));
+	int score = 0;
+
+	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), std::ref(score));
 
 	while (!window->closed()) {
 		if (window->isKeyPressed(GLFW_KEY_RIGHT) && block->moveBlock(direction::Direction::RIGHT, &board))
@@ -95,7 +97,7 @@ int main(int argc, char* argv)
 			else
 				isFirstBlock = false;
 			if (!isFirstThread)
-				first = new std::thread(goDown, &board, block, std::ref(isThread));
+				first = new std::thread(goDown, &board, block, std::ref(isThread), std::ref(score));
 			else
 				isFirstThread = false;
 			isThread = true;
@@ -126,7 +128,7 @@ void updateWindow(const board::Board* board, graphics::Window* window, graphics:
 	window->update();
 }
 
-void goDown(board::Board* board, block::Block* block, bool& isThread)
+void goDown(board::Board* board, block::Block* block, bool& isThread, int &score)
 {
 	Sleep(BLOCK_SPAWN_TIME);
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
@@ -134,6 +136,7 @@ void goDown(board::Board* board, block::Block* block, bool& isThread)
 		Sleep(BLOCK_FALL_TIME);
 	}
 	Sleep(BLOCK_SETUP_TIME);
-	board->verifLine(*block);
+	board->verifLine(*block, score);
+	std::cout << score << std::endl;
 	isThread = false;
 }

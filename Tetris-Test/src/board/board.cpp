@@ -52,8 +52,9 @@ namespace board {
 		this->placeBlock(block);
 	}
 
-	void Board::verifLine(const block::Block& block)
+	void Board::verifLine(const block::Block& block, int &score)
 	{
+		int number = 0;
 		bool verif = true;
 		int goal = block.getMinHeight();
 		for (int i = block.getMaxHeight(); i >= goal; --i) {
@@ -71,7 +72,9 @@ namespace board {
 				}
 				++i;
 				++goal;
+				++number;
 			}
 		}
+		score += number;
 	}
 }
