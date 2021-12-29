@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../block/blockComponant.hpp"
+#include "../block/BlockComponent.hpp"
 #include "../block/block.hpp"
 
 namespace block {
@@ -12,21 +12,21 @@ namespace board {
 	class Board
 	{
 	public:
-		const static unsigned int HEIGHT = 20;
-		const static unsigned int WIDTH = 10;
+		constexpr static int HEIGHT = 20;
+		constexpr static int WIDTH = 10;
 
 	private:
-		block::BlockComponant*** m_Board;
+		block::BlockComponent*** m_Board;
 
 	public:
 		Board();
 		~Board();
 
-		inline block::BlockComponant* getBlockComponant(const unsigned int x, const unsigned int y) const { return this->m_Board[y][x]; }
+		inline block::BlockComponent* getBlockComponent(const int x, const int y) const { return this->m_Board[y][x]; }
 
-		void placeBlock(const block::Block& block);
-		void moveBlock(const block::Block& block, direction::Direction direction);
+		void placeBlock(const block::Block& block) const;
+		void moveBlock(const block::Block& block, direction::Direction direction) const;
 
-		void verifLine(const block::Block& block, int &score);
+		void lineVerification(const block::Block& block, int &score) const;
 	};
 }

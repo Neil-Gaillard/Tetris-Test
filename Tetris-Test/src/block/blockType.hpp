@@ -12,5 +12,5 @@ namespace block {
 		Z
 	};
 
-	static const int BLOCK_TYPE_NUMBER = 7;
+	static constexpr int BLOCK_TYPE_NUMBER = 7;
 }

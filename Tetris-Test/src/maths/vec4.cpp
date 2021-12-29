@@ -2,20 +2,12 @@
 
 namespace maths {
 
-	vec4::vec4()
+	vec4::vec4() : vec4(0.0f, 0.0f, 0.0f, 0.0f)
 	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-		w = 0.0f;
 	}
 
-	vec4::vec4(const float& x, const float& y, const float &z, const float &w)
+	vec4::vec4(const float& x, const float& y, const float &z, const float &w) : x(x), y(y), z(z), w(w)
 	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
-		this->w = w;
 	}
 
 	vec4& vec4::add(const vec4& other)
@@ -56,12 +48,12 @@ namespace maths {
 		return substract(other);
 	}
 
-	bool vec4::operator==(const vec4& other)
+	bool vec4::operator==(const vec4& other) const
 	{
 		return (x == other.x && y == other.y && z == other.z && w == other.w);
 	}
 
-	bool vec4::operator!=(const vec4& other)
+	bool vec4::operator!=(const vec4& other) const
 	{
 		return !(*this == other);
 	}

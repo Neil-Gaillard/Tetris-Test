@@ -167,7 +167,7 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\board\board.cpp" />
-    <ClCompile Include="src\block\blockComponant.cpp" />
+    <ClCompile Include="src\block\BlockComponent.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\block\block.cpp" />
@@ -180,7 +180,7 @@
     <ClInclude Include="src\direction\direction.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\board\board.hpp" />
-    <ClInclude Include="src\block\blockComponant.hpp" />
+    <ClInclude Include="src\block\BlockComponent.hpp" />
     <ClInclude Include="src\maths\mat4.hpp" />
     <ClInclude Include="src\block\block.hpp" />
     <ClInclude Include="src\block\blockType.hpp" />

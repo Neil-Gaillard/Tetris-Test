@@ -1,3 +1,4 @@
+#include <iostream>
 #include <thread>  
 #include <Windows.h>
 
@@ -5,9 +6,6 @@
 
 #include "graphics/window.hpp"
 #include "graphics/shader.hpp"
-
-#include "maths/vec4.hpp"
-#include "maths/mat4.hpp"
 
 #define DEBUG 1
 #define MUSIC 1
@@ -35,30 +33,30 @@
 #define BLOCK_FALL_TIME 700
 #define BLOCK_SETUP_TIME 100
 
-void updateWindow(const board::Board* board, graphics::Window* window, graphics::Shader* shader);
+void update_window(const board::Board* board, graphics::Window* window, graphics::Shader* shader);
 
-void goDown(board::Board* board, block::Block* block, bool &isThread, int &score);
+void go_down(const board::Board* board, block::Block* block, bool &is_thread, int &score);
 
-int main(int argc, char* argv)
+int main()
 {
 #if DEBUG
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
 #else
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif
-	srand((unsigned)time(0));
-	
-	graphics::Window* window = new graphics::Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
+	srand(static_cast<unsigned>(time(nullptr)));
+
+	const auto window = new graphics::Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	glClearColor(0.8f, 0.8f, 0.8f, 0.8f);
 
 	board::Board board;
 
-	bool isFirstBlock = true;
+	bool is_first_block = true;
 	block::Block* block = block::Block::instantiateRandomBlock();
 
 	board.placeBlock(*block);
 
-	graphics::Shader* shader = new graphics::Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+	auto* shader = new graphics::Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 	shader->enable();
 
 	GLuint vbo;
@@ -71,23 +69,23 @@ int main(int argc, char* argv)
 	bool isFirstThread = true;
 
 #if MUSIC
-	PlaySound(AUDIO_MUSIC_PATH, NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+	PlaySound(AUDIO_MUSIC_PATH, nullptr, SND_FILENAME | SND_LOOP | SND_ASYNC);
 #endif
 
 	int score = 0;
 
-	std::thread* first = new std::thread(goDown, &board, block, std::ref(isThread), std::ref(score));
+	auto* first = new std::thread(go_down, &board, block, std::ref(isThread), std::ref(score));
 
 	while (!window->closed()) {
 		if (!isThread) {
-			if (!isFirstBlock) {
+			if (!is_first_block) {
 				block = block::Block::instantiateRandomBlock();
 				board.placeBlock(*block);
 			}
 			else
-				isFirstBlock = false;
+				is_first_block = false;
 			if (!isFirstThread)
-				first = new std::thread(goDown, &board, block, std::ref(isThread), std::ref(score));
+				first = new std::thread(go_down, &board, block, std::ref(isThread), std::ref(score));
 			else
 				isFirstThread = false;
 			isThread = true;
@@ -102,24 +100,24 @@ int main(int argc, char* argv)
 				board.placeBlock(*block);
 		Sleep(INPUT_DELAY);
 
-		updateWindow(&board, window, shader);
+		update_window(&board, window, shader);
 	}
 	first->detach();
 	shader->disable();
 	return 0;
 }
 
-void updateWindow(const board::Board* board, graphics::Window* window, graphics::Shader* shader)
+void update_window(const board::Board* board, graphics::Window* window, graphics::Shader* shader)
 {
 	window->clear();
-	GLfloat vertices[board::Board::HEIGHT * board::Board::WIDTH][18];
 	int k = 0;
 	for (int i = 0; i < board::Board::HEIGHT; i++) {
 		for (int j = 0; j < board::Board::WIDTH; j++) {
-			if (board->getBlockComponant(j, i)->isActive()) {
-				memcpy(vertices[k], board->getBlockComponant(j, i)->getVertices(), 18 * sizeof(GLfloat));
+			if (board->getBlockComponent(j, i)->isActive()) {
+				GLfloat vertices[board::Board::HEIGHT * board::Board::WIDTH][18];
+				memcpy(vertices[k], board->getBlockComponent(j, i)->getVertices(), 18 * sizeof(GLfloat));
 				glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[k]), vertices[k], GL_STATIC_DRAW);
-				shader->setUniform4f(COLOR_MATRIX, board->getBlockComponant(j, i)->getColor());
+				shader->setUniform4f(COLOR_MATRIX, board->getBlockComponent(j, i)->getColor());
 				++k;
 				glDrawArrays(GL_TRIANGLES, 0, 6);
 			}
@@ -128,7 +126,7 @@ void updateWindow(const board::Board* board, graphics::Window* window, graphics:
 	window->update();
 }
 
-void goDown(board::Board* board, block::Block* block, bool& isThread, int &score)
+void go_down(const board::Board* board, block::Block* block, bool& is_thread, int &score)
 {
 	Sleep(BLOCK_SPAWN_TIME);
 	while (block->moveBlock(direction::Direction::DOWN, board)) {
@@ -136,7 +134,7 @@ void goDown(board::Board* board, block::Block* block, bool& isThread, int &score
 		Sleep(BLOCK_FALL_TIME);
 	}
 	Sleep(BLOCK_SETUP_TIME);
-	board->verifLine(*block, score);
+	board->lineVerification(*block, score);
 	std::cout << score << std::endl;
-	isThread = false;
+	is_thread = false;
 }

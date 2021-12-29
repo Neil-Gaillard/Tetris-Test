@@ -1,5 +1,6 @@
 #pragma once
 
+// ReSharper disable once CppUnusedIncludeDirective
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -11,26 +12,25 @@ namespace graphics {
 	{
 	private:
 		const char* m_Title;
-		GLFWwindow* m_Window;
-		unsigned int m_Height;
-		unsigned int m_Width;
-		bool m_Closed;
+		GLFWwindow* m_Window{};
+		int m_Height;
+		int m_Width;
 
-		bool m_keys[MAX_KEYS];
+		bool m_keys[MAX_KEYS]{};
 
 	public:
-		Window(const unsigned int width, const unsigned int height, const char* title);
+		Window(const int width, const int height, const char* title);
 		~Window();
 
-		void clear() const;
-		void update();
+		static void clear();
+		void update() const;
 
 		bool closed() const;
 
-		inline unsigned int getWidth() const { return this->m_Width; }
-		inline unsigned int getHeight() const { return this->m_Height; }
+		inline int getWidth() const { return this->m_Width; }
+		inline int getHeight() const { return this->m_Height; }
 
-		bool isKeyPressed(unsigned int keycode) const;
+		bool isKeyPressed(int keycode) const;
 
 	private:
 		bool init();

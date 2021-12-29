@@ -21,7 +21,7 @@
     <ClCompile Include="src\block\block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\block\blockComponant.cpp">
+    <ClCompile Include="src\block\BlockComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\board\board.cpp">
@@ -53,7 +53,7 @@
     <ClInclude Include="src\block\blockType.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\block\blockComponant.hpp">
+    <ClInclude Include="src\block\BlockComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\board\board.hpp">

@@ -2,49 +2,49 @@
 
 namespace maths {
 
-	Position::Position() : Position::Position(0, 0) { }
-	Position::Position(int x, int y) : m_PosX(x), m_PosY(y) { }
+	position::position() : position(0, 0) { }
+	position::position(const int x, const int y) : m_pos_x_(x), m_pos_y_(y) { }
 
-	Position& Position::add(const Position& other)
+	position& position::add(const position& other)
 	{
-		this->m_PosX += other.m_PosX;
-		this->m_PosY += other.m_PosY;
+		this->m_pos_x_ += other.m_pos_x_;
+		this->m_pos_y_ += other.m_pos_y_;
 		return *this;
 	}
 
-	Position& Position::substract(const Position& other)
+	position& position::substract(const position& other)
 	{
-		this->m_PosX -= other.m_PosX;
-		this->m_PosY -= other.m_PosY;
+		this->m_pos_x_ -= other.m_pos_x_;
+		this->m_pos_y_ -= other.m_pos_y_;
 		return *this;
 	}
 
-	bool Position::operator==(const Position& pos)
+	bool position::operator==(const position& pos) const
 	{
-		return (this->m_PosX == pos.m_PosX && this->m_PosY == pos.m_PosY);
+		return (this->m_pos_x_ == pos.m_pos_x_ && this->m_pos_y_ == pos.m_pos_y_);
 	}
 
-	bool Position::operator!=(const Position& pos)
+	bool position::operator!=(const position& pos) const
 	{
 		return !(*this == pos);
 	}
 
-	Position& Position::operator+=(const Position& pos)
+	position& position::operator+=(const position& pos)
 	{
 		return this->add(pos);
 	}
 
-	Position& Position::operator-=(const Position& pos)
+	position& position::operator-=(const position& pos)
 	{
 		return this->substract(pos);
 	}
 
-	Position operator+(Position a, const Position& b)
+	position operator+(position a, const position& b)
 	{
 		return a.add(b);
 	}
 
-	Position operator-(Position a, const Position& b)
+	position operator-(position a, const position& b)
 	{
 		return a.substract(b);
 	}

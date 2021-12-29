@@ -4,14 +4,14 @@ namespace maths {
 
 	mat4::mat4()
 	{
-		for (int i = 0; i < 4 * 4; i++)
-			elements[i] = 0.0f;
+		for (float& element : elements)
+			element = 0.0f;
 	}
 
-	mat4::mat4(float diagonal)
+	mat4::mat4(const float diagonal)
 	{
-		for (int i = 0; i < 4 * 4; i++)
-			elements[i] = 0.0f;
+		for (float& element : elements)
+			element = 0.0f;
 
 		elements[0 + 0 * 4] = diagonal;
 		elements[1 + 1 * 4] = diagonal;
@@ -49,7 +49,7 @@ namespace maths {
 		return multiply(other);
 	}
 
-	mat4 mat4::orthographic(float left, float right, float bottom, float top, float near, float far)
+	mat4 mat4::orthographic(const float left, const float right, const float bottom, const float top, const float near, const float far)
 	{
 		mat4 result(1.0f);
 

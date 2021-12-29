@@ -2,13 +2,12 @@
 
 namespace board {
 
-	Board::Board()
+	Board::Board() : m_Board(new block::BlockComponent**[HEIGHT])
 	{
-		this->m_Board = new block::BlockComponant**[HEIGHT];
 		for (int i = 0; i < HEIGHT; i++) {
-			this->m_Board[i] = new block::BlockComponant * [WIDTH];
+			this->m_Board[i] = new block::BlockComponent * [WIDTH];
 			for (int j = 0; j < WIDTH; j++)
-				this->m_Board[i][j] = new block::BlockComponant(i, j, maths::vec4(0,0,0,0));
+				this->m_Board[i][j] = new block::BlockComponent(i, j, maths::vec4(0,0,0,0));
 		}
 	}
 
@@ -22,29 +21,29 @@ namespace board {
 		delete[] this->m_Board;
 	}
 
-	void Board::placeBlock(const block::Block& block)
+	void Board::placeBlock(const block::Block& block) const
 	{
-		for (int i = 0; i < block::Block::getNumberComponants(); ++i) {
-			this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos()]->setActive(true);
-			this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos()]->setColor(block.getColorFromType());
+		for (int i = 0; i < block::Block::getNumberComponents(); ++i) {
+			this->m_Board[block.getPositionAt(i).get_y_pos()][block.getPositionAt(i).get_x_pos()]->setActive(true);
+			this->m_Board[block.getPositionAt(i).get_y_pos()][block.getPositionAt(i).get_x_pos()]->setColor(block.getColorFromType());
 		}
 	}
 
-	void Board::moveBlock(const block::Block& block, direction::Direction direction)
+	void Board::moveBlock(const block::Block& block, direction::Direction direction) const
 	{
 		switch (direction)
 		{
 		case direction::Direction::LEFT:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
-				this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos() + 1]->setActive(false);
+			for (int i = 0; i < block::Block::getNumberComponents(); ++i)
+				this->m_Board[block.getPositionAt(i).get_y_pos()][block.getPositionAt(i).get_x_pos() + 1]->setActive(false);
 			break;
 		case direction::Direction::RIGHT:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
-				this->m_Board[block.getPositionAt(i).getYPos()][block.getPositionAt(i).getXPos() - 1]->setActive(false);
+			for (int i = 0; i < block::Block::getNumberComponents(); ++i)
+				this->m_Board[block.getPositionAt(i).get_y_pos()][block.getPositionAt(i).get_x_pos() - 1]->setActive(false);
 			break;
 		case direction::Direction::DOWN:
-			for (int i = 0; i < block::Block::getNumberComponants(); ++i)
-				this->m_Board[block.getPositionAt(i).getYPos() - 1][block.getPositionAt(i).getXPos()]->setActive(false);
+			for (int i = 0; i < block::Block::getNumberComponents(); ++i)
+				this->m_Board[block.getPositionAt(i).get_y_pos() - 1][block.getPositionAt(i).get_x_pos()]->setActive(false);
 			break;
 		case direction::Direction::UP:
 			break;
@@ -52,16 +51,15 @@ namespace board {
 		this->placeBlock(block);
 	}
 
-	void Board::verifLine(const block::Block& block, int &score)
+	void Board::lineVerification(const block::Block& block, int &score) const
 	{
 		int number = 0;
-		bool verif = true;
 		int goal = block.getMinHeight();
 		for (int i = block.getMaxHeight(); i >= goal; --i) {
-			verif = true;
+			bool verification = true;
 			for (int j = 0; j < Board::WIDTH; ++j)
-				verif = verif && this->m_Board[i][j]->isActive();
-			if (verif) {
+				verification = verification && this->m_Board[i][j]->isActive();
+			if (verification) {
 				for (int j = 0; j < Board::WIDTH; ++j)
 					this->m_Board[i][j]->setActive(false);
 				for (int j = i; j > 0; --j) {

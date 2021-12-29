@@ -1,37 +1,35 @@
 #pragma once
 
-#include <iostream>
-
 namespace maths {
 
-	struct Position
+	struct position
 	{
 	private:
-		int m_PosX;
-		int m_PosY;
+		int m_pos_x_;
+		int m_pos_y_;
 
 	public:
-		Position();
-		Position(int x, int y);
+		position();
+		position(int x, int y);
 
-		inline int getXPos() const { return this->m_PosX; }
-		inline int getYPos() const { return this->m_PosY; }
+		inline int get_x_pos() const { return this->m_pos_x_; }
+		inline int get_y_pos() const { return this->m_pos_y_; }
 
-		inline void setXPos(int x) { this->m_PosX = x; }
-		inline void setYPos(int y) { this->m_PosY = y; }
+		inline void set_x_pos(const int x) { this->m_pos_x_ = x; }
+		inline void set_y_pos(const int y) { this->m_pos_y_ = y; }
 
-		friend Position operator+(Position a, const Position& b);
-		friend Position operator-(Position a, const Position& b);
+		friend position operator+(position a, const position& b);
+		friend position operator-(position a, const position& b);
 
-		bool operator==(const Position& pos);
-		bool operator!=(const Position& pos);
+		bool operator==(const position& pos) const;
+		bool operator!=(const position& pos) const;
 
-		Position& operator+=(const Position& pos);
-		Position& operator-=(const Position& pos);
+		position& operator+=(const position& pos);
+		position& operator-=(const position& pos);
 
 	private:
-		Position& add(const Position& other);
-		Position& substract(const Position& other);
+		position& add(const position& other);
+		position& substract(const position& other);
 	};
 
 }

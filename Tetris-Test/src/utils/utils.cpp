@@ -1,13 +1,13 @@
 #include "utils.hpp"
 
 namespace utils {
-	std::string utils::read_file(const char* filepath)
+	std::string read_file(const char* filepath)
 	{
 		FILE* file = fopen(filepath, "rt");
 		fseek(file, 0, SEEK_END);
-		unsigned long length = ftell(file);
+		const unsigned long length = ftell(file);
 
-		char* data = new char[length + 1];
+		const auto data = new char[length + 1];
 		memset(data, 0, length + 1);
 
 		fseek(file, 0, SEEK_SET);

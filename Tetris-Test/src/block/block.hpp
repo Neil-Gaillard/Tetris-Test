@@ -20,20 +20,20 @@ namespace block {
 	class Block
 	{
 	private:
-		const static int NUMBER_COMPONANTS = 4;
+		constexpr static int NUMBER_COMPONENTS = 4;
 
 		const BlockType m_BlockType;
-		std::vector<maths::Position> m_BlockPos;
+		std::vector<maths::position> m_BlockPos;
 
-		int m_MaxWidth;
-		int m_MinWidth;
-		int m_MaxHeight;
-		int m_MinHeight;
+		int m_MaxWidth{};
+		int m_MinWidth{};
+		int m_MaxHeight{};
+		int m_MinHeight{};
 
 	public:
 		static Block* instantiateRandomBlock();
 
-		inline static int getNumberComponants() { return Block::NUMBER_COMPONANTS; }
+		inline static int getNumberComponents() { return Block::NUMBER_COMPONENTS; }
 
 		inline BlockType getBlockType() const { return this->m_BlockType; }
 		maths::vec4 getColorFromType() const;
@@ -43,14 +43,14 @@ namespace block {
 		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
 		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
 
-		inline maths::Position getPositionAt(const unsigned int i) const { return this->m_BlockPos.at(i); }
+		inline maths::position getPositionAt(const unsigned int i) const { return this->m_BlockPos.at(i); }
 
 		bool moveBlock(const direction::Direction direction, const board::Board* board);
 		bool rotateBlock(const board::Board* board);
 
 	private:
-		Block(const BlockType blockType);
-		void defineComponants();
+		explicit Block(const BlockType blockType);
+		void defineComponents();
 		void defineTBlock();
 		void defineIBlock();
 		void defineJBlock();

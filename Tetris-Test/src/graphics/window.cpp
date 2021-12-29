@@ -1,16 +1,18 @@
 #include "window.hpp"
 
+#include <GL/glew.h>
+
 namespace graphics {
 
-	void window_resize(GLFWwindow* window, int width, int height);
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	void window_resize(GLFWwindow* window, const int width, const int height);
+	static void key_callback(GLFWwindow* window, const int key, int scancode, const int action, int mods);
 
-	Window::Window(const unsigned int width, const unsigned int height, const char* title) : m_Height(height), m_Width(width), m_Title(title)
+	Window::Window(const int width, const int height, const char* title) : m_Title(title), m_Height(height), m_Width(width)
 	{
 		if (!init())
 			glfwTerminate();
-		for (int i = 0; i < MAX_KEYS; i++)
-			m_keys[i] = false;
+		for (bool& m_key : m_keys)
+			m_key = false;
 	}
 
 	Window::~Window()
@@ -23,7 +25,7 @@ namespace graphics {
 		if (!glfwInit())
 			return false;
 
-		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
+		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, nullptr, nullptr);
 		if (!m_Window) {
 			glfwTerminate();
 			return false;
@@ -39,18 +41,18 @@ namespace graphics {
 		return true;
 	}
 
-	void Window::clear() const
+	void Window::clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Window::update()
+	void Window::update() const
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 
-	bool Window::isKeyPressed(unsigned int keycode) const
+	bool Window::isKeyPressed(const int keycode) const
 	{
 		if (keycode >= MAX_KEYS)
 			return false;
@@ -62,13 +64,13 @@ namespace graphics {
 		return glfwWindowShouldClose(m_Window) == 1;
 	}
 
-	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	void key_callback(GLFWwindow* window, const int key, int scancode, const int action, int mods)
 	{
-		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		const auto win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		win->m_keys[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
-	void window_resize(GLFWwindow* window, int width, int height)
+	void window_resize(GLFWwindow* window, const int width, const int height)
 	{
 		glViewport(0, 0, width, height);
 	}

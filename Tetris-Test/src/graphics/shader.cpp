@@ -11,14 +11,14 @@
 #define RIGHT 10.0F
 #define BOTTOM 0.0F
 #define TOP 20.0F
-#define NEAR -1.0F
+#define NEAR (-1.0F)
 #define FAR 1.0F
 
 namespace graphics {
 	Shader::Shader(const char* vertPath, const char* fragPath)
-		: m_VertexShaderPath(vertPath), m_FragmentShaderPath(fragPath)
+		: m_VertexShaderPath(vertPath), m_FragmentShaderPath(fragPath), m_ShaderID(load())
 	{
-		m_ShaderID = load();
+
 	}
 
 	Shader::~Shader()
@@ -26,19 +26,19 @@ namespace graphics {
 		glDeleteProgram(m_ShaderID);
 	}
 
-	GLuint Shader::load()
+	GLuint Shader::load() const
 	{
-		GLuint program = glCreateProgram();
-		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
-		GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
+		const GLuint program = glCreateProgram();
+		const GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
+		const GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-		std::string vertSourceString = utils::read_file(m_VertexShaderPath);
-		std::string fragSourceString = utils::read_file(m_FragmentShaderPath);
+		const std::string vertSourceString = utils::read_file(m_VertexShaderPath);
+		const std::string fragSourceString = utils::read_file(m_FragmentShaderPath);
 
 		const char* vertSource = vertSourceString.c_str();
 		const char* fragSource = fragSourceString.c_str();
 
-		glShaderSource(vertex, 1, &vertSource, NULL);
+		glShaderSource(vertex, 1, &vertSource, nullptr);
 		glCompileShader(vertex);
 
 		GLint result;
@@ -53,7 +53,7 @@ namespace graphics {
 			return 0;
 		}
 
-		glShaderSource(fragment, 1, &fragSource, NULL);
+		glShaderSource(fragment, 1, &fragSource, nullptr);
 		glCompileShader(fragment);
 
 		glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
@@ -80,30 +80,30 @@ namespace graphics {
 		return program;
 	}
 
-	void Shader::enable()
+	void Shader::enable() const
 	{
 		glUseProgram(m_ShaderID);
 
-		maths::mat4 orthographic = maths::mat4::orthographic(LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR);
+		const maths::mat4 orthographic = maths::mat4::orthographic(LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR);
 		setUniformMat4(PROJECTION_MATRIX, orthographic);
 	}
 
-	void Shader::disable() const
+	void Shader::disable()
 	{
 		glUseProgram(0);
 	}
 
-	void Shader::setUniform4f(const GLchar* name, const maths::vec4& vector)
+	void Shader::setUniform4f(const GLchar* name, const maths::vec4& vector) const
 	{
 		glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
 	}
 
-	void Shader::setUniformMat4(const GLchar* name, const maths::mat4& matrix)
+	void Shader::setUniformMat4(const GLchar* name, const maths::mat4& matrix) const
 	{
 		glUniformMatrix4fvARB(getUniformLocation(name), 1, GL_FALSE, matrix.elements);
 	}
 
-	GLint Shader::getUniformLocation(const GLchar* name)
+	GLint Shader::getUniformLocation(const GLchar* name) const
 	{
 		return glGetUniformLocation(m_ShaderID, name);
 	}
