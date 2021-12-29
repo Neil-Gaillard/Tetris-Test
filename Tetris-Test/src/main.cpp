@@ -7,10 +7,10 @@
 #include "graphics/window.hpp"
 #include "graphics/shader.hpp"
 
-#define DEBUG 1
+#define DEBUG 0
 #define MUSIC 1
 
-#define WINDOW_NAME "Tetris Test"
+#define WINDOW_NAME "Tetris"
 
 #define WINDOW_HEIGHT 900
 #define WINDOW_WIDTH 450
@@ -29,11 +29,11 @@
 
 #define INPUT_DELAY 40
 
-#define BLOCK_SPAWN_TIME 600
+#define BLOCK_SPAWN_TIME 300
 #define BLOCK_FALL_TIME 700
-#define BLOCK_SETUP_TIME 100
+#define BLOCK_SETUP_TIME 300
 
-void update_window(const board::Board* board, graphics::Window* window, graphics::Shader* shader);
+void update_window(const board::Board* board, const graphics::Window* window, const graphics::Shader* shader);
 
 void go_down(const board::Board* board, block::Block* block, bool &is_thread, int &score);
 
@@ -56,13 +56,13 @@ int main()
 
 	board.placeBlock(*block);
 
-	auto* shader = new graphics::Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+	const auto* shader = new graphics::Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 	shader->enable();
 
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 	glEnableVertexAttribArray(0);
 
 	bool isThread = false;
@@ -103,13 +103,13 @@ int main()
 		update_window(&board, window, shader);
 	}
 	first->detach();
-	shader->disable();
+	graphics::Shader::disable();
 	return 0;
 }
 
-void update_window(const board::Board* board, graphics::Window* window, graphics::Shader* shader)
+void update_window(const board::Board* board, const graphics::Window* window, const graphics::Shader* shader)
 {
-	window->clear();
+	graphics::Window::clear();
 	int k = 0;
 	for (int i = 0; i < board::Board::HEIGHT; i++) {
 		for (int j = 0; j < board::Board::WIDTH; j++) {

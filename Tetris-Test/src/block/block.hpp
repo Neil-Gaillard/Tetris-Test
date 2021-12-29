@@ -38,10 +38,10 @@ namespace block {
 		inline BlockType getBlockType() const { return this->m_BlockType; }
 		maths::vec4 getColorFromType() const;
 		
-		inline unsigned int getMaxWidth() const { return this->m_MaxWidth; }
-		inline unsigned int getMinWidth() const { return this->m_MinWidth; }
-		inline unsigned int getMaxHeight() const { return this->m_MaxHeight; }
-		inline unsigned int getMinHeight() const { return this->m_MinHeight; }
+		inline int getMaxWidth() const { return this->m_MaxWidth; }
+		inline int getMinWidth() const { return this->m_MinWidth; }
+		inline int getMaxHeight() const { return this->m_MaxHeight; }
+		inline int getMinHeight() const { return this->m_MinHeight; }
 
 		inline maths::position getPositionAt(const unsigned int i) const { return this->m_BlockPos.at(i); }
 
