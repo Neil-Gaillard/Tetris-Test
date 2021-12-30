@@ -7,7 +7,7 @@
 #include "graphics/window.hpp"
 #include "graphics/shader.hpp"
 
-#define DEBUG 0
+#define DEBUG 1
 #define MUSIC 1
 
 #define WINDOW_NAME "Tetris"
@@ -110,15 +110,13 @@ int main()
 void update_window(const board::Board* board, const graphics::Window* window, const graphics::Shader* shader)
 {
 	graphics::Window::clear();
-	int k = 0;
 	for (int i = 0; i < board::Board::HEIGHT; i++) {
 		for (int j = 0; j < board::Board::WIDTH; j++) {
 			if (board->getBlockComponent(j, i)->isActive()) {
-				GLfloat vertices[board::Board::HEIGHT * board::Board::WIDTH][18];
-				memcpy(vertices[k], board->getBlockComponent(j, i)->getVertices(), 18 * sizeof(GLfloat));
-				glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[k]), vertices[k], GL_STATIC_DRAW);
+				GLfloat vertices[18];
+				memcpy(vertices, board->getBlockComponent(j, i)->getVertices(), 18 * sizeof(GLfloat));
+				glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 				shader->setUniform4f(COLOR_MATRIX, board->getBlockComponent(j, i)->getColor());
-				++k;
 				glDrawArrays(GL_TRIANGLES, 0, 6);
 			}
 		}

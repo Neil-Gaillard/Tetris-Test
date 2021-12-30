@@ -14,6 +14,8 @@ namespace block {
 		maths::vec4 m_Color;
 		bool m_Active;
 
+		GLfloat* m_Vertices;
+
 	public:
 		BlockComponent(int x, int y, maths::vec4 color, bool active);
 		BlockComponent(int x, int y, maths::vec4 color);
@@ -24,7 +26,7 @@ namespace block {
 
 		inline maths::vec4 getColor() const { return this->m_Color; }
 
-		GLfloat* getVertices() const;
+		inline GLfloat* getVertices() const { return this->m_Vertices; }
 
 		inline void setPosX(const int x) { this->m_Pos.set_x_pos(x); }
 		inline void setPosY(const int y) { this->m_Pos.set_y_pos(y); }
